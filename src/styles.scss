@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: Fredoka;
+    src: url('./assets/fonts/Fredoka/static/Fredoka-Regular.ttf');
+}
+
+body {
+    margin: 0;
+    font-family: Fredoka;
+}

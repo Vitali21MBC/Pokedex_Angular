@@ -1,0 +1,169 @@
+.pokedex-background {
+    height: 100vh;
+    width: 100%;
+    background-color: rgb(255, 154, 136);
+    border-radius: 32px 32px 0px 32px;
+    border: 12px solid rgb(66, 58, 58);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-section {
+    margin-top: 12px;
+    padding-bottom: 12px;
+    position: relative;
+    border-bottom: 12px solid rgb(66, 58, 58);
+    background-color: rgb(255, 107, 87);
+    border-radius: 32px 32px 0 0;
+    display: flex;
+
+    .lenses {
+        display: flex;
+        align-items: flex-start;
+        width: 30%;
+
+        .big-lens {
+            height: 56px;
+            width: 56px;
+            margin-left: 40px;
+            background-color: rgb(52, 213, 234);
+            border-radius: 50%;
+            display: flex;
+            align-items: flex-start;
+            overflow: hidden;
+            border: 12px solid rgb(66, 58, 58);
+
+            .big-lens-reflection {
+                height: 56px;
+                width: 56px;
+                background-color: rgb(83, 238, 247);
+                border-radius: 50%;
+                transform: translatey(-28px);
+            }
+        }
+
+        .red-lens {
+            height: 20px;
+            width: 20px;
+            margin-left: 40px;
+            background-color: rgb(217, 97, 81);
+            border-radius: 50%;
+            border: 10px solid rgb(66, 58, 58);
+        }
+
+        .yellow-lens {
+            height: 20px;
+            width: 20px;
+            margin-left: 16px;
+            background-color: rgb(254, 183, 90);
+            border-radius: 50%;
+            border: 10px solid rgb(66, 58, 58);
+        }
+
+        .green-lens {
+            height: 20px;
+            width: 20px;
+            margin-left: 16px;
+            background-color: rgb(145, 217, 99);
+            border-radius: 50%;
+            border: 10px solid rgb(66, 58, 58);
+        }
+    }
+
+    .headline {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40%;
+
+        img {
+            height: 80px;
+            width: auto;
+            filter: drop-shadow(0px 0px 2px white);
+        }
+    }
+
+    .placeholder-space {
+        width: 30%;
+        position: relative;
+
+        .design-object-shadow {
+            position: absolute;
+            width: 80%;
+            border-left: 63px solid transparent;
+            border-right: 0px solid rgb(66, 58, 58);
+            border-bottom: 63px solid rgb(66, 58, 58);
+            bottom: -24px;
+            right: 0;
+
+            .design-object {
+                position: absolute;
+                width: calc(100% - 6px);
+                border-left: 52px solid transparent;
+                border-right: 0px solid rgb(255, 154, 136);
+                border-bottom: 52px solid rgb(255, 154, 136);
+                bottom: -63px;
+                right: 0;
+            }
+        }
+    }
+}
+
+.middle-section {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .left-border {
+        width: 12px;
+        height: 100%;
+        background-color: rgb(255, 129, 112);
+        border-right: 12px solid rgb(66, 58, 58);
+    }
+
+    app-pokedex-screen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        height: 94%;
+        width: 94%;
+    }
+
+    .right-border {
+        width: 12px;
+        height: calc(100% + 52px);
+        border-left: 12px solid rgb(66, 58, 58);
+        transform: translatey(-26px);
+        background-color: rgb(255, 107, 87);
+
+        .right-border-top {
+            height: 60px;
+        }
+
+        .right-border-middle {
+            height: calc(100% - 144px);
+            border-top: 12px solid rgb(66, 58, 58);
+            border-bottom: 12px solid rgb(66, 58, 58);
+        }
+
+        .right-border-bottom {
+            height: 60px;
+        }
+
+        .right-border-reflection {
+            height: 12px;
+            background-color: rgb(255, 154, 136);
+        }
+    }
+}
+
+.bottom-section {
+    height: 24px;
+    border-top: 12px solid rgb(66, 58, 58);
+    background-color: rgb(255, 107, 87);
+    border-bottom-left-radius: 22px;
+}
