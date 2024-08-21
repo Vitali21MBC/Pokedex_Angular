@@ -1,0 +1,42 @@
+<div id="pokemon-list">
+    <div
+      *ngFor="let pokemon of pokemons; let i = index"
+      [id]="'overviewPokemonCard' + i"
+      class="overviewPokemonCard"
+      [ngStyle]="{ backgroundColor: backgroundColorAsType(pokemon.type_1) }"
+      
+    >
+      <div [id]="'overviewPokemonId' + i" class="overviewPokemonId">
+        {{ formatPokemonId(pokemon.id) }}
+      </div>
+      <div class="overviewPokemonName">{{ pokemon.name }}</div>
+      <div class="typesAndImage">
+        <div
+          [id]="'overviewPokemonTypeContainer' + i"
+          class="overviewPokemonTypeContainer"
+        >
+          <div class="overviewPokemonType" *ngIf="pokemon.type_1">
+            {{ pokemon.type_1 }}
+          </div>
+          <div class="overviewPokemonType" *ngIf="pokemon.type_2">
+            {{ pokemon.type_2 }}
+          </div>
+        </div>
+        <div class="imageAndPokeballIcon">
+          <div class="overviewPokeballIconContainer">
+            <div class="overviewPokeballIcon">
+              <div [id]="'overviewHorizontalLine' + i" class="overviewHorizontalLine">
+                <div [id]="'overviewLittleCircle' + i" class="overviewLittleCircle">
+                  <div class="overviewLittleBall"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="overviewPokemonImage">
+            <img [src]="pokemon.sprite" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
