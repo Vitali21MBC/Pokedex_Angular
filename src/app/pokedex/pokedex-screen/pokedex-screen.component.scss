@@ -120,14 +120,27 @@
     overflow: hidden;
 }
 
+// #pokemon-list {
+//     width: 100%;
+//     flex-wrap: wrap;
+//     display: flex;
+//     flex: 1;
+//     gap: 12px;
+//     overflow-y: auto;
+//     justify-content: space-evenly;
+//     padding-top: 16px;
+//     padding-bottom: 16px;
+// }
+
 #pokemon-list {
     width: 100%;
     flex-wrap: wrap;
     display: flex;
     flex: 1;
-    gap: 12px;
+    gap: 16px;
     overflow-y: auto;
-    justify-content: space-evenly;
+    padding: 16px;
+    box-sizing: border-box;
 }
 
 /* width */
@@ -137,17 +150,17 @@
 
 /* Track */
 #pokemon-list::-webkit-scrollbar-track {
-    background-color: rgb(221, 221, 221);
+    background-color: rgb(255,206,49);
 }
 
 /* Handle */
 #pokemon-list::-webkit-scrollbar-thumb {
-    background-color: rgb(161, 160, 160);
+    background-color: rgb(57,51,152);
 }
 
 /* Handle on hover */
 #pokemon-list::-webkit-scrollbar-thumb:hover {
-    background-color: rgb(119, 119, 119);
+    background-color: rgb(60, 48, 236);
 }
 
 .below-screen {

@@ -87,4 +87,35 @@ export class PokemonCardSmallComponent implements OnInit {
     const matchedType = pokemonTypes.find(t => t.type === type);
     return matchedType ? matchedType.color : 'gray';
   }
+
+
+
+
+
+
+
+  onMouseEnter(event: MouseEvent, index: number): void {
+    const cardElement = document.getElementById(`overviewPokemonCard${index}`);
+    if (!cardElement) return;
+
+    const timeoutId = setTimeout(() => {
+      cardElement.classList.add('is-flipped');
+    }, 1000);
+
+    cardElement.setAttribute('data-timeout-id', timeoutId.toString());
+  }
+
+  // Event-Handler für das Verlassen des Hovers
+  onMouseLeave(event: MouseEvent, index: number): void {
+    const cardElement = document.getElementById(`overviewPokemonCard${index}`);
+    if (!cardElement) return;
+
+    const timeoutId = cardElement.getAttribute('data-timeout-id');
+    if (timeoutId) {
+      clearTimeout(parseInt(timeoutId));
+      cardElement.removeAttribute('data-timeout-id');
+    }
+
+    cardElement.classList.remove('is-flipped');
+  }
 }
