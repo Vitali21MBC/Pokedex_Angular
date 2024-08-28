@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: relative;
     align-items: center;
     height: 100%;
     width: 100%;
@@ -20,36 +21,40 @@
         border-bottom: 80px solid rgb(66, 58, 58);
         position: absolute;
         bottom: -4px;
-        left: 0px;
+        left: -4px;
 
         .design-object {
             width: 0px;
             height: 0px;
-            border-right: 75px solid transparent;
+            border-right: 78px solid transparent;
             border-left: 0px solid rgb(255, 154, 136);
-            border-bottom: 75px solid rgb(255, 154, 136);
+            border-bottom: 78px solid rgb(255, 154, 136);
             position: absolute;
-            bottom: -80px;
-            left: 0px;
+            bottom: -82px;
+            left: -2px;
         }
     }
 }
 
 .above-screen {
     display: flex;
+    justify-content: space-between;
     width: 100%;
     padding-top: 8px;
     padding-bottom: 8px;
+    gap: 16px;
 }
 
 .top-left {
-    width: 20%;
+    width: 40%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 
     .search-bar {
         width: 100%;
+        max-width: 360px;
+        min-width: 240px;
         display: flex;
         justify-content: flex-start;
 
@@ -81,7 +86,7 @@
     justify-content: center;
     align-items: center;
     gap: 32px;
-    width: 60%;
+    width: 20%;
 
     .left-lamp {
         height: 20px;
@@ -101,7 +106,7 @@
 }
 
 .top-right-placeholder {
-    width: 20%;
+    width: 40%;
 }
 
 .content-screen {
@@ -119,18 +124,6 @@
     box-shadow: inset 0px 0px 7px 1px rgba(66, 58, 58, 0.8);
     overflow: hidden;
 }
-
-// #pokemon-list {
-//     width: 100%;
-//     flex-wrap: wrap;
-//     display: flex;
-//     flex: 1;
-//     gap: 12px;
-//     overflow-y: auto;
-//     justify-content: space-evenly;
-//     padding-top: 16px;
-//     padding-bottom: 16px;
-// }
 
 #pokemon-list {
     width: 100%;
@@ -150,12 +143,12 @@
 
 /* Track */
 #pokemon-list::-webkit-scrollbar-track {
-    background-color: rgb(255,206,49);
+    background-color: rgb(255, 206, 49);
 }
 
 /* Handle */
 #pokemon-list::-webkit-scrollbar-thumb {
-    background-color: rgb(57,51,152);
+    background-color: rgb(57, 51, 152);
 }
 
 /* Handle on hover */
@@ -231,5 +224,317 @@
             background-color: rgb(66, 58, 58);
             border-radius: 12px 12px 12px 12px;
         }
+    }
+}
+
+@media screen and (max-width: 930px) {
+
+    .screen-frame {
+        padding-left: 60px;
+        padding-right: 60px;
+
+        .design-object-shadow {
+            border-right: 70px solid transparent;
+            border-bottom: 70px solid rgb(66, 58, 58);
+
+            .design-object {
+                border-right: 68px solid transparent;
+                border-bottom: 68px solid rgb(255, 154, 136);
+                bottom: -72px;
+                left: -2px;
+            }
+        }
+    }
+
+    .top-left {
+        width: 80%;
+    }
+
+    .top-middle {
+        justify-content: flex-end;
+    }
+
+    .top-right-placeholder {
+        display: none;
+    }
+
+    .below-screen {
+
+        .bottom-left {
+            width: 120px;
+
+            .big-lamp {
+                height: 50px;
+                width: 50px;
+            }
+        }
+
+        .load-pokemon-btn {
+            transform: translateY(10px);
+        }
+
+        .bottom-right {
+            gap: 7px;
+            width: 120px;
+
+            .speaker-slit {
+                height: 7px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+
+    .screen-frame {
+        padding-left: 40px;
+        padding-right: 40px;
+
+        .design-object-shadow {
+            border-right: 50px solid transparent;
+            border-bottom: 50px solid rgb(66, 58, 58);
+
+            .design-object {
+                border-right: 47px solid transparent;
+                border-bottom: 47px solid rgb(255, 154, 136);
+                bottom: -50px;
+            }
+        }
+    }
+
+    .below-screen {
+
+        .bottom-left {
+            width: 80px;
+
+            .big-lamp {
+                height: 40px;
+                width: 40px;
+            }
+        }
+
+        .load-pokemon-btn {
+            width: 140px;
+
+            button {
+                height: 36px;
+                font-size: 15px;
+                padding: 8px 16px;
+
+                &:active {
+                    transform: translateY(-6px);
+                }
+            }
+        }
+
+        .bottom-right {
+            gap: 6px;
+            width: 80px;
+
+            .speaker-slit {
+                height: 6px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 560px) {
+
+    .screen-frame {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+
+    .above-screen {
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    .top-left {
+
+        .search-bar {
+            min-width: 200px;
+            max-width: 240px;
+
+            input {
+                height: 24px;
+                border-radius: 12px;
+                font-size: 14px;
+            }
+        }
+    }
+
+    .top-middle {
+        gap: 20px;
+
+        .left-lamp,
+        .right-lamp {
+            height: 14px;
+            width: 14px;
+        }
+    }
+
+    .below-screen {
+
+        .bottom-left {
+            width: 60px;
+
+            .big-lamp {
+                height: 32px;
+                width: 32px;
+            }
+        }
+
+        .load-pokemon-btn {
+            width: 140px;
+
+            button {
+                height: 36px;
+                font-size: 15px;
+                padding: 8px 16px;
+
+                &:active {
+                    transform: translateY(-6px);
+                }
+            }
+        }
+
+        .bottom-right {
+            gap: 5px;
+            width: 60px;
+
+            .speaker-slit {
+                height: 5px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 460px) {
+
+    .screen-frame {
+        padding-left: 16px;
+        padding-right: 16px;
+        border: 3px solid rgb(66, 58, 58);
+
+        .design-object-shadow {
+            border-right: 32px solid transparent;
+            border-bottom: 32px solid rgb(66, 58, 58);
+            bottom: -3px;
+            left: -3px;
+
+            .design-object {
+                border-right: 29px solid transparent;
+                border-bottom: 29px solid rgb(255, 154, 136);
+                bottom: -32px;
+                left: -1px;
+            }
+        }
+    }
+
+    .above-screen {
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+
+    .top-left {
+
+        .search-bar {
+            min-width: 180px;
+            max-width: 200px;
+
+            input {
+                height: 20px;
+                font-size: 13px;
+            }
+        }
+    }
+
+    .top-middle {
+        gap: 20px;
+
+        .left-lamp,
+        .right-lamp {
+            height: 14px;
+            width: 14px;
+        }
+    }
+
+    .below-screen {
+
+        .bottom-left {
+            width: 60px;
+
+            .big-lamp {
+                height: 28px;
+                width: 28px;
+            }
+        }
+
+        .load-pokemon-btn {
+            width: 120px;
+            height: 20px;
+            transform: translateY(8px);
+
+            button {
+                height: 32px;
+                font-size: 14px;
+                font-weight: bold;
+                padding: 4px 8px;
+                transform: translateY(-10px);
+
+                &:active {
+                    transform: translateY(-6px);
+                }
+            }
+        }
+
+        .bottom-right {
+            gap: 4px;
+            width: 60px;
+
+            .speaker-slit {
+                height: 4px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 390px) {
+
+    .screen-frame {
+        padding-left: 8px;
+        padding-right: 8px;
+        border: 2px solid rgb(66, 58, 58);
+
+        .design-object-shadow {
+            border-right: 24px solid transparent;
+            border-bottom: 24px solid rgb(66, 58, 58);
+            bottom: -2px;
+            left: -2px;
+
+            .design-object {
+                border-right: 24px solid transparent;
+                border-bottom: 24px solid rgb(255, 154, 136);
+                bottom: -25px;
+                left: -2px;
+            }
+        }
+    }
+
+    .top-left {
+        .search-bar {
+            input {
+                border: 2px solid rgb(66, 58, 58);
+            }
+        }
+    }
+
+    .top-middle {
+        gap: 16px;
+    }
+
+    .content-screen {
+        border: 1px solid rgb(66, 58, 58);
     }
 }
