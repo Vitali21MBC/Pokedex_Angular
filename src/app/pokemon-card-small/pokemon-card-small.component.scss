@@ -117,21 +117,21 @@
      }
  }
 
- @media screen and (max-width: 1143px) {
+ @media screen and (max-width: 1155px) {
      .pokemon-card-small {
          width: calc(33.333% - 11px);
          transition: ease-in-out 0.125s;
      }
  }
 
- @media screen and (max-width: 913px) {
+ @media screen and (max-width: 939px) {
      .pokemon-card-small {
          width: calc(50% - 8px);
          transition: ease-in-out 0.125s;
      }
  }
 
- @media screen and (max-width: 504px) {
+ @media screen and (max-width: 614px) {
      .pokemon-card-small {
          width: calc(100%);
          transition: ease-in-out 0.125s;
