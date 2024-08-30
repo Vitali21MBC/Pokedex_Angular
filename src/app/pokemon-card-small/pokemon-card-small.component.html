@@ -1,4 +1,4 @@
-<div *ngFor="let pokemon of pokemons; let i = index" [id]="'overviewPokemonCard' + i" class="pokemon-card-small"
+<div *ngFor="let pokemon of getPokemons(); let i = index" [id]="'overviewPokemonCard' + i" class="pokemon-card-small"
   [ngStyle]="{ backgroundColor: backgroundColorAsType(pokemon.type_1) }">
   <div [id]="'overviewPokemonId' + i" class="pokemon-id-small-card">
     {{ formatPokemonId(pokemon.id) }}

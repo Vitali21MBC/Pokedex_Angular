@@ -3,13 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { PokemonDataService } from '../pokemon-data.service';
 import { HttpClientModule } from '@angular/common/http';
 
-interface Pokemon {
-  id: number;
-  name: string;
-  type_1: string;
-  type_2?: string;
-  sprite: string;
-}
+// interface Pokemon {
+//   id: number;
+//   name: string;
+//   type_1: string;
+//   type_2?: string;
+//   sprite: string;
+// }
 
 @Component({
   selector: 'app-pokemon-card-small',
@@ -19,7 +19,7 @@ interface Pokemon {
   styleUrl: './pokemon-card-small.component.scss'
 })
 export class PokemonCardSmallComponent implements OnInit {
-  pokemons: Pokemon[] = [];
+  // pokemons: Pokemon[] = [];
 
   constructor(private pokemonDataService: PokemonDataService) { }
 
@@ -31,13 +31,20 @@ export class PokemonCardSmallComponent implements OnInit {
     for (let i = 2; i < 32; i++) {
       await this.fetchAndProcessPokemon();
     }
-    this.loadPokemonAsBuffer();
+    await this.loadPokemonAsBuffer();
+  }
+
+  async loadPokemonAsBuffer() {
+    for (let i = 2; i < 32; i++) {
+      await this.fetchAndProcessPokemon();
+    }
   }
 
   async fetchAndProcessPokemon() {
     try {
       const data = await this.pokemonDataService.fetchPokemonOverviewData().toPromise();
       this.pushPokemonInfoInArray(data);
+      // console.log(data);
     } catch (error) {
       console.error('Fehler beim Laden der Pokemon-Daten:', error);
     }
@@ -52,28 +59,34 @@ export class PokemonCardSmallComponent implements OnInit {
   }
 
   pushTwoTypesInArray(eachPokemon: any) {
-    const pokemonBasicData: Pokemon = {
+    const pokemonBasicData = {
       id: eachPokemon['id'],
       name: eachPokemon['name'],
       type_1: eachPokemon['types'][0]['type']['name'],
       type_2: eachPokemon['types'][1]['type']['name'],
       sprite: eachPokemon['sprites']['front_default'],
     };
-    this.pokemons.push(pokemonBasicData);
+    if (pokemonBasicData.id <= 30 || pokemonBasicData.id < (pokemonBasicData.id - 31)) {
+      this.pokemonDataService.addPokemon(pokemonBasicData);
+    }
+    console.log(pokemonBasicData);
   }
 
   pushOneTypeInArray(eachPokemon: any) {
-    const pokemonBasicData: Pokemon = {
+    const pokemonBasicData = {
       id: eachPokemon['id'],
       name: eachPokemon['name'],
       type_1: eachPokemon['types'][0]['type']['name'],
       sprite: eachPokemon['sprites']['front_default'],
     };
-    this.pokemons.push(pokemonBasicData);
+    if (pokemonBasicData.id <= 30 || pokemonBasicData.id < (pokemonBasicData.id - 31)) {
+      this.pokemonDataService.addPokemon(pokemonBasicData);
+    }
+    console.log(pokemonBasicData);
   }
 
-  loadPokemonAsBuffer() {
-    // Implementiere eine Logik für das Puffern der Pokémon, falls erforderlich
+  getPokemons() {
+    return this.pokemonDataService.getPokemons();
   }
 
   formatPokemonId(id: number): string {
@@ -88,34 +101,4 @@ export class PokemonCardSmallComponent implements OnInit {
     return matchedType ? matchedType.color : 'gray';
   }
 
-
-
-
-
-
-
-  onMouseEnter(event: MouseEvent, index: number): void {
-    const cardElement = document.getElementById(`overviewPokemonCard${index}`);
-    if (!cardElement) return;
-
-    const timeoutId = setTimeout(() => {
-      cardElement.classList.add('is-flipped');
-    }, 1000);
-
-    cardElement.setAttribute('data-timeout-id', timeoutId.toString());
-  }
-
-  // Event-Handler für das Verlassen des Hovers
-  onMouseLeave(event: MouseEvent, index: number): void {
-    const cardElement = document.getElementById(`overviewPokemonCard${index}`);
-    if (!cardElement) return;
-
-    const timeoutId = cardElement.getAttribute('data-timeout-id');
-    if (timeoutId) {
-      clearTimeout(parseInt(timeoutId));
-      cardElement.removeAttribute('data-timeout-id');
-    }
-
-    cardElement.classList.remove('is-flipped');
-  }
 }

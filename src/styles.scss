@@ -6,4 +6,11 @@
 body {
     margin: 0;
     font-family: Fredoka;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+app-root{
+    padding: 4px;
 }
