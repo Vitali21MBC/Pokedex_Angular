@@ -25,9 +25,11 @@ export class PokedexScreenComponent implements OnInit {
   }
 
   async initialLoadOfPokemon() {
+    this.isLoading = true;
     for (let i = 2; i < 32; i++) {
       await this.fetchAndProcessPokemon();
     }
+    this.isLoading = false;
   }
 
   async fetchAndProcessPokemon() {
