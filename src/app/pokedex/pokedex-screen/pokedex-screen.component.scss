@@ -363,6 +363,13 @@ p {
         }
     }
 
+    .loading-screen {
+        img{
+            height: 240px;
+            width: 240px;
+        }
+    }
+
     .below-screen {
 
         .bottom-left {
@@ -381,6 +388,7 @@ p {
                 height: 36px;
                 font-size: 15px;
                 padding: 8px 16px;
+                gap: 8px;
 
                 &:active {
                     transform: translateY(-6px);
@@ -548,6 +556,11 @@ p {
                     transform: translateY(-6px);
                 }
             }
+        }
+
+        p {
+            font-size: 14px;
+            font-weight: normal;
         }
 
         .bottom-right {
