@@ -12,6 +12,9 @@
         <div class="top-right-placeholder"></div>
     </div>
     <div class="content-screen">
+        <div *ngIf="isLoading" class="loading-screen">
+
+        </div>
         <app-pokemon-card-small id="pokemon-list"></app-pokemon-card-small>
     </div>
     <div class="below-screen">
@@ -19,7 +22,11 @@
             <div class="big-lamp"></div>
         </div>
         <div class="load-pokemon-btn">
-            <Button id="loadMorePokemonButton" (click)="loadMorePokemon()">More Pokemon</Button>
+            <Button *ngIf="!isLoading" id="loadMorePokemonButton" (click)="loadMorePokemon()">More Pokemon</Button>
+            <Button *ngIf="isLoading" id="loadMorePokemonButton" [ngClass]="{ 'active': isLoading }">
+                <div class="spinner"></div>
+                <p>Loading...</p>
+            </Button>
         </div>
         <div class="bottom-right">
             <div class="speaker-slit"></div>
