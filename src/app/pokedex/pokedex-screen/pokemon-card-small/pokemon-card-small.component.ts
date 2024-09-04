@@ -21,13 +21,20 @@ export class PokemonCardSmallComponent implements OnInit, OnDestroy {
     private el: ElementRef
   ) { }
 
+  filteredPokemons: any[] = [];
+
   ngOnInit() {
     console.log('PokemonCardSmallComponent initialized');
+    this.filteredPokemons = this.getPokemons(); // Initialisierung mit allen Pokémon
     this.subscription = this.pokedexScreenComponent.newPokemonLoaded.subscribe(() => {
       console.log('New Pokemon loaded event received');
       this.scrollToBottom();
     });
-  }
+}
+
+setFilteredPokemons(pokemons: any[]) {
+    this.filteredPokemons = pokemons;
+}
 
   ngOnDestroy() {
     if (this.subscription) {

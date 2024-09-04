@@ -78,6 +78,27 @@ export class PokedexScreenComponent implements OnInit {
     }
     this.isLoading = false;
     console.log('New Pokemon loaded, emitting event'); // Debug log
+  }
 
+  searchPokemon() {
+    const searchElement = document.getElementById('searchPokemon') as HTMLInputElement;
+
+    if (searchElement) {
+      let search = searchElement.value.toLowerCase();
+
+      if (search.length >= 3) {
+        // Filtere die Pokémon-Liste basierend auf der Suchanfrage
+        const filteredPokemons = this.pokemonDataService.getPokemons().filter((element: any) => {
+          return element['type_1'].toLowerCase().includes(search) ||
+            element['name'].toLowerCase().includes(search);
+        });
+
+        // Setze die gefilterte Liste in der Child-Komponente
+        this.smallPokemonCards.setFilteredPokemons(filteredPokemons);
+      } else {
+        // Setze alle Pokémon zurück, wenn der Suchbegriff weniger als 3 Zeichen hat
+        this.smallPokemonCards.setFilteredPokemons(this.pokemonDataService.getPokemons());
+      }
+    }
   }
 }
