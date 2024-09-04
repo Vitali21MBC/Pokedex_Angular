@@ -6,11 +6,20 @@
 body {
     margin: 0;
     font-family: Fredoka;
+}
+
+app-root {
+    padding: 4px;
+    height: calc(100vh - 8px);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-app-root{
-    padding: 4px;
+app-pokedex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1920px;
 }

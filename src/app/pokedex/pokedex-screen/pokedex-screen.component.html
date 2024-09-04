@@ -6,8 +6,10 @@
             </div>
         </div>
         <div class="top-middle">
-            <div class="left-lamp"></div>
-            <div class="right-lamp"></div>
+            <div *ngIf="isLoading" class="left-lamp" [ngClass]="{ 'active': isLoading }"></div>
+            <div *ngIf="!isLoading" class="left-lamp"></div>
+            <div *ngIf="isLoading" class="right-lamp" [ngClass]="{ 'active': isLoading }"></div>
+            <div *ngIf="!isLoading" class="right-lamp"></div>
         </div>
         <div class="top-right-placeholder"></div>
     </div>
