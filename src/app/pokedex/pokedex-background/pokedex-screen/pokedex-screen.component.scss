@@ -710,3 +710,18 @@ p {
         border: 1px solid rgb(66, 58, 58);
     }
 }
+
+
+
+
+app-pokemon-info-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:absolute;
+    top: -20px;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+}

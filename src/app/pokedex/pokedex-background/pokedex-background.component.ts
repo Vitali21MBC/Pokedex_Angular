@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { PokedexScreenComponent } from '../pokedex-screen/pokedex-screen.component';
+import { PokedexScreenComponent } from './pokedex-screen/pokedex-screen.component';
 
 @Component({
   selector: 'app-pokedex-background',

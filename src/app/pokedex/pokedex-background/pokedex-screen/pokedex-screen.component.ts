@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { PokemonDataService } from '../../pokemon-data.service';
 import { HttpClientModule } from '@angular/common/http';
-import { PokemonCardSmallComponent } from './pokemon-card-small/pokemon-card-small.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
+import { PokemonDataService } from '../../../pokemon-data.service';
+import { PokemonCardSmallComponent } from './pokemon-card-small/pokemon-card-small.component';
+import { PokemonCardBigComponent } from './pokemon-card-big/pokemon-card-big.component';
 
 @Component({
   selector: 'app-pokedex-screen',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, PokemonCardSmallComponent],
+  imports: [CommonModule, HttpClientModule, PokemonCardSmallComponent, PokemonCardBigComponent],
   templateUrl: './pokedex-screen.component.html',
   styleUrl: './pokedex-screen.component.scss'
 })
@@ -17,6 +18,7 @@ export class PokedexScreenComponent implements OnInit {
 
   isLoading: boolean = false;
   newPokemonLoaded = new Subject<void>();
+  pokemonInfoIsOpen: boolean = false;
 
   constructor(private pokemonDataService: PokemonDataService) { }
 
@@ -101,4 +103,10 @@ export class PokedexScreenComponent implements OnInit {
       }
     }
   }
+
+  openPokemonInfoCard() {
+    console.log("Infokarte geöffnet");
+    this.pokemonInfoIsOpen = true;
+  }
+
 }
