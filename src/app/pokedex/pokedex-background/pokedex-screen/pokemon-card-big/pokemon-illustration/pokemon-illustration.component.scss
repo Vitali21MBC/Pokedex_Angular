@@ -1,0 +1,96 @@
+.illustration-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    background-color: blue;
+    height: 100%;
+    width: 560px;
+    border-bottom-right-radius: 64px;
+    border-top-right-radius: 64px;
+    gap: 4px;
+    box-sizing: border-box;
+
+    .illustration-header {
+        display: flex;
+        background-color: green;
+        height: 25%;
+        width: 100%;
+
+        .pokemon-name-and-type-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 60%;
+            height: 100%;
+
+            .pokemon-name-container {
+                h1 {
+                    margin-block-start: 0;
+                    margin-block-end: 0;
+                    color: white;
+                    font-size: 64px;
+                }
+
+                &:first-letter {
+                    text-transform: uppercase;
+                }
+            }
+        }
+
+        .pokemon-type-container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 16px;
+
+            .pokemon-type {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-width: 48px;
+                background-color: rgba(255, 255, 255, 0.3);
+                border-radius: 16px;
+                padding: 2px 12px 2px 12px;
+
+                h2 {
+                    margin-block-start: 0;
+                    margin-block-end: 0;
+                    color: white;
+                    font-size: 20px;
+                    font-weight: normal;
+
+                    &:first-letter {
+                        text-transform: uppercase;
+                    }
+                }
+            }
+        }
+    }
+
+    .pokemon-id {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        width: 60%;
+        height: 100%;
+        color: white;
+        font-size: 24px;
+    }
+}
+
+.illustration-body {
+    display: flex;
+    background-color: green;
+    height: 60%;
+    width: 100%;
+}
+
+.illustration-footer {
+    display: flex;
+    background-color: green;
+    height: 15%;
+    width: 100%;
+}

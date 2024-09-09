@@ -1,5 +1,5 @@
 <div *ngFor="let pokemon of filteredPokemons; let i = index" [id]="'overviewPokemonCard' + i"
-  class="pokemon-card-small" (click)="openPokemonInfoCard()">
+  class="pokemon-card-small" (click)="openPokemonInfoCard(pokemon.id)">
 
   <div class="card-content" [ngStyle]="{ backgroundColor: backgroundColorAsType(pokemon.type_1) }">
     <div class="card-front-side">

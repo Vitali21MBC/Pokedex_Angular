@@ -14,7 +14,7 @@ import { PokemonDataService } from '../../../../pokemon-data.service';
 })
 export class PokemonCardSmallComponent implements OnInit, OnDestroy {
   private subscription?: Subscription;
-  @Output() pokemonCardButtonClicked = new EventEmitter<void>();
+  @Output() pokemonCardButtonClicked = new EventEmitter<number>();
 
   constructor(
     private pokemonDataService: PokemonDataService,
@@ -70,8 +70,9 @@ private scrollToBottom() {
   }, 300);
 }
 
-openPokemonInfoCard() {
-  this.pokemonCardButtonClicked.emit();
+openPokemonInfoCard(pokemonId: number) {
+  this.pokemonCardButtonClicked.emit(pokemonId);
+  console.log("Ausgewähltes Pokemon:", pokemonId);
 }
 
 

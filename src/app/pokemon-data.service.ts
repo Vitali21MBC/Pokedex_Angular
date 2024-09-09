@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 interface Pokemon {
   id: number;
   name: string;
@@ -15,6 +15,9 @@ interface Pokemon {
 export class PokemonDataService {
   public pokemonIndex = 1;
   private pokemons: Pokemon[] = [];
+
+  private pokemonInfoIsOpenSubject = new BehaviorSubject<boolean>(false);
+  public pokemonInfoIsOpen$ = this.pokemonInfoIsOpenSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -50,8 +53,13 @@ export class PokemonDataService {
     return this.http.get(url);
   }
 
+  getPokemonById(id: number): Pokemon | undefined {
+    return this.pokemons.find(pokemon => pokemon.id === id);
+  }
+
   addPokemon(pokemon: Pokemon) {
     this.pokemons.push(pokemon);
+    console.log(pokemon.id);
   }
 
   getPokemons(): Pokemon[] {
@@ -61,4 +69,9 @@ export class PokemonDataService {
   getPokemonTypes() {
     return this.pokemonTypes;
   }
+
+    // Methode, um den Zustand von pokemonInfoIsOpen zu setzen
+    setPokemonInfoIsOpen(isOpen: boolean) {
+      this.pokemonInfoIsOpenSubject.next(isOpen);  // Zustand ändern
+    }
 }

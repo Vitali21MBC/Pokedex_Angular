@@ -15,6 +15,9 @@ import { PokemonCardBigComponent } from './pokemon-card-big/pokemon-card-big.com
 })
 export class PokedexScreenComponent implements OnInit {
   @ViewChild(PokemonCardSmallComponent) smallPokemonCards!: PokemonCardSmallComponent;
+  @ViewChild(PokemonCardBigComponent) bigPokemonCard!: PokemonCardBigComponent;
+
+  selectedPokemonId: number | null = null;
 
   isLoading: boolean = false;
   newPokemonLoaded = new Subject<void>();
@@ -23,7 +26,11 @@ export class PokedexScreenComponent implements OnInit {
   constructor(private pokemonDataService: PokemonDataService) { }
 
   ngOnInit(): void {
+    // Abonniere den Zustand aus dem Service
     this.initialLoadOfPokemon();
+    this.pokemonDataService.pokemonInfoIsOpen$.subscribe((isOpen: boolean) => {
+      this.pokemonInfoIsOpen = isOpen;
+    });
   }
 
   async initialLoadOfPokemon() {
@@ -60,6 +67,7 @@ export class PokedexScreenComponent implements OnInit {
       sprite: eachPokemon['sprites']['front_default'],
     };
     this.pokemonDataService.addPokemon(pokemonBasicData);
+    console.log('Selected Pokemon ID:', this.selectedPokemonId);
   }
 
   pushOneTypeInArray(eachPokemon: any) {
@@ -70,6 +78,7 @@ export class PokedexScreenComponent implements OnInit {
       sprite: eachPokemon['sprites']['front_default'],
     };
     this.pokemonDataService.addPokemon(pokemonBasicData);
+    console.log('Selected Pokemon ID:', this.selectedPokemonId);
   }
 
   async loadMorePokemon() {
@@ -104,9 +113,11 @@ export class PokedexScreenComponent implements OnInit {
     }
   }
 
-  openPokemonInfoCard() {
-    console.log("Infokarte geöffnet");
+  openPokemonInfoCard(pokemonId: number) {
+    this.selectedPokemonId = pokemonId;
+    console.log('Selected Pokemon ID:', pokemonId);
     this.pokemonInfoIsOpen = true;
+    this.pokemonDataService.setPokemonInfoIsOpen(this.pokemonInfoIsOpen);
   }
 
 }

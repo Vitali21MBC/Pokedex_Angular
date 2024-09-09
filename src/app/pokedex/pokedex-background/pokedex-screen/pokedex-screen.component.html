@@ -17,8 +17,8 @@
         <div *ngIf="isLoading" class="loading-screen">
             <img src="./../../../assets/img/pokeball_loading.png">
         </div>
-        <app-pokemon-card-small *ngIf="!pokemonInfoIsOpen" id="pokemon-list" (pokemonCardButtonClicked)="openPokemonInfoCard()" ></app-pokemon-card-small>
-        <app-pokemon-card-big *ngIf="pokemonInfoIsOpen"></app-pokemon-card-big>
+        <app-pokemon-card-small *ngIf="!pokemonInfoIsOpen" id="pokemon-list" (pokemonCardButtonClicked)="openPokemonInfoCard($event)" ></app-pokemon-card-small>
+        <app-pokemon-card-big *ngIf="pokemonInfoIsOpen" [selectedPokemonId]="selectedPokemonId"></app-pokemon-card-big>
     </div>
     <div class="below-screen">
         <div class="bottom-left">
