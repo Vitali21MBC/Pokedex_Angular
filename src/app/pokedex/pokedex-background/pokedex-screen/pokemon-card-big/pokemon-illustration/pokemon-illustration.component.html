@@ -1,4 +1,4 @@
-<div class="illustration-wrapper">
+<div class="illustration-wrapper" [ngStyle]="{ backgroundColor: backgroundColorAsType(pokemon.type_1) }">
     <div class="illustration-header">
         <div class="pokemon-name-and-type-wrapper">
             <div class="pokemon-name-container">
@@ -6,9 +6,11 @@
             </div>
             <div class="pokemon-type-container">
                 <div class="pokemon-type">
+                    <img [src]="'./../../../../../../assets/img/'+ pokemon.type_1 + 'Icon.png'">
                     <h2>{{ pokemon.type_1 }}</h2>
                 </div>
-                <div class="pokemon-type">
+                <div class="pokemon-type" *ngIf="pokemon.type_2">
+                    <img [src]="'./../../../../../../assets/img/'+ pokemon.type_2 + 'Icon.png'">
                     <h2>{{ pokemon.type_2 }}</h2>
                 </div>
             </div>
@@ -19,11 +21,23 @@
     </div>
 
     <div class="illustration-body">
-        <div class="previous-pokemon"></div>
-        <div class="pokemon-image"></div>
-        <div class="next-pokemon"></div>
+        <div class="previous-pokemon">
+            <div class="arrow-container">
+                <img src="./../../../../../../assets/img/arrowLeft.svg" alt="previous pokemon">
+            </div>
+        </div>
+        <div class="pokemon-image">
+            <img [src]="pokemon.sprite_big" />
+        </div>
+        <div class="next-pokemon">
+            <div class="arrow-container">
+                <img src="./../../../../../../assets/img/arrowRight.svg" alt="next pokemon">
+            </div>
+        </div>
     </div>
 
 
-    <div class="illustration-footer"></div>
+    <div class="illustration-footer">
+        <img src="./../../../../../../assets/img/pokemon-background.png" alt="grass background">
+    </div>
 </div>

@@ -65,6 +65,7 @@ export class PokedexScreenComponent implements OnInit {
       type_1: eachPokemon['types'][0]['type']['name'],
       type_2: eachPokemon['types'][1]['type']['name'],
       sprite: eachPokemon['sprites']['front_default'],
+      sprite_big: eachPokemon['sprites']['other']['official-artwork']['front_default'],
     };
     this.pokemonDataService.addPokemon(pokemonBasicData);
     console.log('Selected Pokemon ID:', this.selectedPokemonId);
@@ -76,6 +77,7 @@ export class PokedexScreenComponent implements OnInit {
       name: eachPokemon['name'],
       type_1: eachPokemon['types'][0]['type']['name'],
       sprite: eachPokemon['sprites']['front_default'],
+      sprite_big: eachPokemon['sprites']['other']['official-artwork']['front_default'],
     };
     this.pokemonDataService.addPokemon(pokemonBasicData);
     console.log('Selected Pokemon ID:', this.selectedPokemonId);

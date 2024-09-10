@@ -42,4 +42,10 @@ export class PokemonIllustrationComponent implements OnInit {
     else if (id < 1000) return `#0${id}`;
     else return `#${id}`;
   }
+
+  backgroundColorAsType(type: string): string {
+    const pokemonTypes = this.pokemonDataService.getPokemonTypes();
+    const matchedType = pokemonTypes.find(t => t.type === type);
+    return matchedType ? matchedType.color : 'gray';
+  }
 }
