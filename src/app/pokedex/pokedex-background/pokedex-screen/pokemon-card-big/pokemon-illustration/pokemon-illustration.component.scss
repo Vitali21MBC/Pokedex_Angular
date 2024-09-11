@@ -133,7 +133,7 @@
         img {
             height: 280px;
             width: 280px;
-            filter: drop-shadow(0px 0px 60px white);
+            filter: drop-shadow(0px 0px 2px black);
             margin-top: 120px;
             z-index: 3;
 
@@ -181,7 +181,7 @@
         position: absolute;
         bottom: -271px;
         left: -33px;
-        filter: drop-shadow(0px 8px 4px black);
+        filter: drop-shadow(0px -1px 1px black);
     }
 }
 

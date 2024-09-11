@@ -4,9 +4,23 @@ import { BehaviorSubject, Observable } from 'rxjs';
 interface Pokemon {
   id: number;
   name: string;
+  height: number;
+  weight: number;
   type_1: string;
   type_2?: string;
   sprite: string;
+  sprite_big: string;
+  sprite_shiny: string;
+}
+
+interface PokemonSpecies {
+  id: number;
+  name: string;
+  flavor_text: string;
+  genus: string;
+  habitat: string;
+  capture_rate: number;
+  growth_rate: string;
 }
 
 @Injectable({
@@ -15,6 +29,7 @@ interface Pokemon {
 export class PokemonDataService {
   public pokemonIndex = 1;
   private pokemons: Pokemon[] = [];
+  private pokemonSpecies: PokemonSpecies[] = [];
 
   private pokemonInfoIsOpenSubject = new BehaviorSubject<boolean>(false);
   public pokemonInfoIsOpen$ = this.pokemonInfoIsOpenSubject.asObservable();
@@ -63,6 +78,7 @@ export class PokemonDataService {
   }
 
   getPokemons(): Pokemon[] {
+    console.log('Pokemon Basic Data geholt aus Service', this.pokemons);
     return this.pokemons;
   }
 
@@ -70,8 +86,24 @@ export class PokemonDataService {
     return this.pokemonTypes;
   }
 
-    // Methode, um den Zustand von pokemonInfoIsOpen zu setzen
-    setPokemonInfoIsOpen(isOpen: boolean) {
-      this.pokemonInfoIsOpenSubject.next(isOpen);  // Zustand ändern
-    }
+  // Methode, um den Zustand von pokemonInfoIsOpen zu setzen
+  setPokemonInfoIsOpen(isOpen: boolean) {
+    this.pokemonInfoIsOpenSubject.next(isOpen);  // Zustand ändern
+  }
+
+  fetchPokemonSpeciesData(pokemonId: number): Observable<any> {
+    const url = `https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`;
+    return this.http.get(url);
+  }
+
+  addPokemonSpecies(pokemon: PokemonSpecies) {
+    this.pokemonSpecies.push(pokemon);
+    console.log("Gepushpter Datensatz: ", pokemon);
+    console.log("Array Nach dem pushen: ", this.pokemonSpecies);
+  }
+
+  getPokemonSpecies(): PokemonSpecies[] {
+    console.log('Pokemon Species Data geholt aus Service', this.pokemonSpecies);
+    return this.pokemonSpecies;
+  }
 }

@@ -1,1 +1,32 @@
-<p>pokemon-details works!</p>
+<div class="pokemon-details-wrapper">
+    <div #menu class="details-nav-bar">
+        <div class="nav-bar-menu-list">
+            <div (click)="setActiveMenu(0)" class="nav-bar-menu-item">
+                <img src="./../../../../../../assets/img/about.png">
+                <!-- <span>About</span> -->
+            </div>
+            <div (click)="setActiveMenu(1)" class="nav-bar-menu-item">
+                <img src="./../../../../../../assets/img/stats.png">
+                <!-- <span>Base Stats</span> -->
+            </div>
+            <div (click)="setActiveMenu(2)" class="nav-bar-menu-item">
+                <img src="./../../../../../../assets/img/evolution.png">
+                <!-- <span>Evolution</span> -->
+            </div>
+            <div (click)="setActiveMenu(3)" class="nav-bar-menu-item">
+                <img src="./../../../../../../assets/img/moves.png">
+                <!-- <span>Moves</span> -->
+            </div>
+        </div>
+        <div class="nav-bar-underline">
+            <div class="nav-bar-base-line"></div>
+            <div class="nav-bar-active-line" [ngStyle]="{ left: activePosition + 'px', width: activeWidth + 'px' }"></div>
+        </div>
+    </div>
+    <div class="pokemon-details">
+        <app-about *ngIf="activeMenu === 0" [selectedPokemonId]="selectedPokemonId"></app-about>
+        <app-stats *ngIf="activeMenu === 1" [selectedPokemonId]="selectedPokemonId"></app-stats>
+        <app-evolution *ngIf="activeMenu === 2" [selectedPokemonId]="selectedPokemonId"></app-evolution>
+        <app-moves *ngIf="activeMenu === 3" [selectedPokemonId]="selectedPokemonId"></app-moves>
+    </div>
+</div>

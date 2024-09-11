@@ -1,0 +1,87 @@
+ .pokemon-details-wrapper {
+     display: flex;
+     flex-direction: column;
+     justify-content: flex-start;
+     align-items: center;
+     width: 100%;
+     height: 100%;
+
+     .details-nav-bar {
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
+         width: 100%;
+     }
+
+     .nav-bar-menu-list {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         width: 100%;
+         margin-top: 16px;
+         padding-left: 32px;
+         padding-right: 32px;
+         box-sizing: border-box;
+
+         .nav-bar-menu-item {
+             font-size: 20px;
+             height: 40px;
+             transition: 0.075s ease-in;
+
+             img {
+                 height: 32px;
+             }
+
+
+             &:hover {
+                 cursor: pointer;
+                 scale: calc(1.1);
+                 transition: 0.125s ease-in-out;
+             }
+         }
+     }
+
+     .nav-bar-underline {
+
+         position: relative;
+         height: 2px;
+         width: calc(100% - 64px);
+
+         .nav-bar-base-line {
+             position: absolute;
+             bottom: 0;
+             display: flex;
+             height: 100%;
+             width: 100%;
+             border-radius: 16px;
+             background-color: rgba(0, 0, 0, 0.2);
+
+         }
+
+         .nav-bar-active-line {
+             display: flex;
+             position: absolute;
+             bottom: 0;
+             height: 3px;
+             background-color: #007bff;
+             /* Kräftiges Blau für den Unterstrich */
+             z-index: 9;
+             /* Über der Basislinie */
+             transition: left 0.3s ease, width 0.3s ease;
+         }
+     }
+
+     .pokemon-details {
+         display: flex;
+         height: 100%;
+         width: 100%;
+         box-sizing: border-box;
+         padding-left: 32px;
+         padding-right: 32px;
+
+         app-about{
+            width: 100%;
+         }
+     }
+ }

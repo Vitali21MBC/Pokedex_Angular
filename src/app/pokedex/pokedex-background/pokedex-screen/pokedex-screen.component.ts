@@ -62,10 +62,13 @@ export class PokedexScreenComponent implements OnInit {
     const pokemonBasicData = {
       id: eachPokemon['id'],
       name: eachPokemon['name'],
+      height: eachPokemon['height'],
+      weight: eachPokemon['weight'],
       type_1: eachPokemon['types'][0]['type']['name'],
       type_2: eachPokemon['types'][1]['type']['name'],
       sprite: eachPokemon['sprites']['front_default'],
       sprite_big: eachPokemon['sprites']['other']['official-artwork']['front_default'],
+      sprite_shiny: eachPokemon['sprites']['other']['official-artwork']['front_shiny'],
     };
     this.pokemonDataService.addPokemon(pokemonBasicData);
     console.log('Selected Pokemon ID:', this.selectedPokemonId);
@@ -75,9 +78,12 @@ export class PokedexScreenComponent implements OnInit {
     const pokemonBasicData = {
       id: eachPokemon['id'],
       name: eachPokemon['name'],
+      height: eachPokemon['height'],
+      weight: eachPokemon['weight'],
       type_1: eachPokemon['types'][0]['type']['name'],
       sprite: eachPokemon['sprites']['front_default'],
       sprite_big: eachPokemon['sprites']['other']['official-artwork']['front_default'],
+      sprite_shiny: eachPokemon['sprites']['other']['official-artwork']['front_shiny'],
     };
     this.pokemonDataService.addPokemon(pokemonBasicData);
     console.log('Selected Pokemon ID:', this.selectedPokemonId);
