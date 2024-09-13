@@ -1,39 +1,40 @@
-<div class="about-wrapper">
-    <h3>{{pokemonSpecies.flavor_text}}</h3>
+<div class="about-wrapper" data-aos="fade-in" *ngIf="pokemonSpecies">
+    <h3>{{ pokemonSpecies.flavor_text }}</h3>
     <div class="pokemon-info-and-shiny">
-        <table id="pokemon-info-table" class="pokemon-info-table">
-            <tr>
-                <td class="info-topic">Species</td>
-                <td id="pokemonSpecies">{{pokemonSpecies.genus}}</td>
-            </tr>
-            <tr>
-                <td class="info-topic">Height</td>
-                <td id="pokemonHeight">{{this.pokemonHeight}} m</td>
-            </tr>
-            <tr>
-                <td class="info-topic">Weight</td>
-                <td id="pokemonWeight">{{this.pokemonWeight}} kg</td>
-            </tr>
-            <tr>
-                <td class="info-topic">Habitat</td>
-                <td class="capitalize">{{pokemonSpecies.habitat}}</td>
-            </tr>
-            <tr>
-                <td class="info-topic">Capture Rate</td>
-                <td id="captureRate">{{pokemonSpecies.capture_rate}} %</td>
-            </tr>
-            <tr>
-                <td class="info-topic">Growth Rate</td>
-                <td class="capitalize">{{pokemonSpecies.growth_rate}}</td>
-            </tr>
-            <tr>
-                <td class="info-topic">Abilities</td>
-                <td id="pokemonAbilities"></td>
-            </tr>
-        </table>
-        <div class="pokemon-shiny-image">
-            <span>Shiny Version</span>
-            <img [src]="pokemon.sprite_shiny" />
-        </div>
+      <table id="pokemon-info-table" class="pokemon-info-table">
+        <tr>
+          <td class="info-topic">Species</td>
+          <td id="pokemonSpecies">{{ pokemonSpecies.genus }}</td>
+        </tr>
+        <tr>
+          <td class="info-topic">Height</td>
+          <td id="pokemonHeight">{{ pokemonHeight }} m</td>
+        </tr>
+        <tr>
+          <td class="info-topic">Weight</td>
+          <td id="pokemonWeight">{{ pokemonWeight }} kg</td>
+        </tr>
+        <tr>
+          <td class="info-topic">Habitat</td>
+          <td class="capitalize">{{ pokemonSpecies.habitat }}</td>
+        </tr>
+        <tr>
+          <td class="info-topic">Capture Rate</td>
+          <td id="captureRate">{{ pokemonSpecies.capture_rate }} %</td>
+        </tr>
+        <tr>
+          <td class="info-topic">Growth Rate</td>
+          <td class="capitalize">{{ pokemonSpecies.growth_rate }}</td>
+        </tr>
+        <tr>
+          <td class="info-topic">Abilities</td>
+          <td id="pokemonAbilities"></td>
+        </tr>
+      </table>
+      <div class="pokemon-shiny-image">
+        <span>Shiny Version</span>
+        <img [src]="pokemon.sprite_shiny" />
+      </div>
     </div>
-</div>
+  </div>
+  

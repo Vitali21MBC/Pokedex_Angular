@@ -21,15 +21,60 @@ interface PokemonSpecies {
   habitat: string;
   capture_rate: number;
   growth_rate: string;
+  evo_url: string;
+}
+
+export interface EvolutionDetails {
+  gender: number | null;
+  held_item: string | null;
+  item: string | null;
+  known_move: string | null;
+  known_move_type: string | null;
+  location: string | null;
+  min_affection: number | null;
+  min_beauty: number | null;
+  min_happiness: number | null;
+  min_level: number | null;
+  needs_overworld_rain: boolean;
+  party_species: string | null;
+  party_type: string | null;
+  relative_physical_stats: number | null;
+  time_of_day: string;
+  trade_species: string | null;
+  trigger: string;
+  turn_upside_down: boolean;
+}
+
+export interface Evolution {
+  name: string;
+  evolves_to: Evolution[];
+  evolution_details: EvolutionDetails[]; // Evolution-Anforderungen
+}
+
+export interface PokemonEvolutions {
+  base_pokemon: string;
+  evolutions: Evolution[]; // Verschachtelte Evolutionen
+}
+
+interface PokemonFirstEvolutions {
+  id: number,
+  name: string,
+  sprite_big: string,
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonDataService {
+
+  public basicDataURL = "https://pokeapi.co/api/v2/pokemon/";
+  private speciesDataURL = "https://pokeapi.co/api/v2/pokemon-species/";
+
   public pokemonIndex = 1;
   private pokemons: Pokemon[] = [];
-  private pokemonSpecies: PokemonSpecies[] = [];
+  private pokemonSpecies: PokemonSpecies | null = null;
+  private pokemonEvolutions: PokemonEvolutions | null = null;
+  private pokemonFirstEvolutions: PokemonFirstEvolutions | null = null;
 
   private pokemonInfoIsOpenSubject = new BehaviorSubject<boolean>(false);
   public pokemonInfoIsOpen$ = this.pokemonInfoIsOpenSubject.asObservable();
@@ -62,8 +107,7 @@ export class PokemonDataService {
   readonly pokemonGameVersions = ['RB', 'Y', 'GS', 'C', 'RS', 'E', 'FRLG', 'DP', 'P', 'HGSS', 'BW', 'B2W2', 'XY', 'ORAS', 'SM', 'USUM', 'LGPLGE', 'SS', 'BDSP', 'SV'];
 
   fetchPokemonOverviewData(): Observable<any> {
-    const url = `https://pokeapi.co/api/v2/pokemon/${this.pokemonIndex}`;
-    console.log(this.pokemonIndex);
+    const url = this.basicDataURL + this.pokemonIndex;
     this.pokemonIndex++;
     return this.http.get(url);
   }
@@ -74,11 +118,9 @@ export class PokemonDataService {
 
   addPokemon(pokemon: Pokemon) {
     this.pokemons.push(pokemon);
-    console.log(pokemon.id);
   }
 
   getPokemons(): Pokemon[] {
-    console.log('Pokemon Basic Data geholt aus Service', this.pokemons);
     return this.pokemons;
   }
 
@@ -92,18 +134,45 @@ export class PokemonDataService {
   }
 
   fetchPokemonSpeciesData(pokemonId: number): Observable<any> {
-    const url = `https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`;
+    const url = this.speciesDataURL + pokemonId;
     return this.http.get(url);
   }
 
   addPokemonSpecies(pokemon: PokemonSpecies) {
-    this.pokemonSpecies.push(pokemon);
-    console.log("Gepushpter Datensatz: ", pokemon);
-    console.log("Array Nach dem pushen: ", this.pokemonSpecies);
+    this.pokemonSpecies = pokemon;
   }
 
-  getPokemonSpecies(): PokemonSpecies[] {
-    console.log('Pokemon Species Data geholt aus Service', this.pokemonSpecies);
+  getPokemonSpecies(): PokemonSpecies | null  {
     return this.pokemonSpecies;
+  }
+
+  fetchPokemonEvolutionsData(): Observable<any> {
+    if (this.pokemonSpecies && this.pokemonSpecies.evo_url) {
+      const url = this.pokemonSpecies.evo_url;
+      return this.http.get(url);
+    } else {
+      throw new Error("Pokemon species data is null or undefined");
+    }
+  }
+
+  addPokemonEvolutions(pokemon: PokemonEvolutions) {
+    this.pokemonEvolutions = pokemon;  // Speichere das Pokemon als einzelnes Objekt
+  }
+
+  getPokemonEvolutions(): PokemonEvolutions | null {
+    return this.pokemonEvolutions;
+  }
+
+  fetchPokemonFirstEvolutionsData(pokemonName: string): Observable<any> {
+    const url = this.basicDataURL + pokemonName;
+    return this.http.get(url);
+  }
+
+  addPokemonFirstEvolutions(pokemon: PokemonFirstEvolutions) {
+    this.pokemonFirstEvolutions = pokemon;  // Speichere das Pokemon als einzelnes Objekt
+  }
+
+  getPokemonFirstEvolutions(): PokemonFirstEvolutions | null {
+    return this.pokemonFirstEvolutions;
   }
 }

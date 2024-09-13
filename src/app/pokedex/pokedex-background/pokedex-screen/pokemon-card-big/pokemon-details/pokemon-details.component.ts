@@ -29,21 +29,37 @@ export class PokemonDetailsComponent implements OnInit{
 
   setActiveMenu(index: number) {
     this.activeMenu = index;
-
+  
     const menuItems = this.menu.nativeElement.querySelectorAll('.nav-bar-menu-item');
     const activeItem = menuItems[index];
-  
+    
     // Finde den übergeordneten Container, auf den sich das Menüelement bezieht
     const parentElement = this.menu.nativeElement.querySelector('.nav-bar-menu-list');
     const parentLeft = parentElement.getBoundingClientRect().left;
     const paddingLeft = parseFloat(getComputedStyle(parentElement).paddingLeft);
-  
+    
     // Berechne die relative Position des aktiven Menüpunkts zur Parent-Komponente
     const itemRect = activeItem.getBoundingClientRect();
     this.activePosition = itemRect.left - parentLeft - paddingLeft;
   
     // Breite des aktiven Menüpunkts
     this.activeWidth = activeItem.offsetWidth;
+  
+    // Manuelle Anpassungen basierend auf dem Menüindex
+    if (index === 0) {
+      // Erster Menüpunkt - Manuelle Anpassung (z.B. etwas nach rechts verschieben)
+      this.activePosition += 3.2; // Verschiebe den Unterstrich um 2px nach rechts
+    } else if (index === 1) {
+      // Zweiter Menüpunkt - Manuelle Anpassung
+      this.activePosition += 7; // Verschiebe den Unterstrich um 4px nach rechts
+    } else if (index === 2) {
+      // Dritter Menüpunkt - Manuelle Anpassung
+      this.activePosition += 7; // Verschiebe den Unterstrich um 3px nach links
+    } else if (index === 3) {
+      // Vierter Menüpunkt - Manuelle Anpassung
+      this.activePosition += 4; // Verschiebe den Unterstrich um 2px nach links
+    }
   }
+  
 
 }

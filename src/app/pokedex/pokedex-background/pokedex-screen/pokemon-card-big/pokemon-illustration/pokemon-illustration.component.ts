@@ -18,21 +18,17 @@ export class PokemonIllustrationComponent implements OnInit {
 
   ngOnInit() {
     if (this.selectedPokemonId) {
-      console.log('pokemonId changed:', this.selectedPokemonId);
       this.loadPokemonDetails();
     }
   }
 
   loadPokemonDetails() {
     const pokemons = this.pokemonDataService.getPokemons();
-    console.log('All pokemons:', pokemons); // Überprüfe die Liste der Pokémon
     this.pokemon = pokemons.find(p => p.id === this.selectedPokemonId) || null;
-    console.log('Found pokemon:', this.pokemon);
   }
 
   getPokemons() {
     const pokemons = this.pokemonDataService.getPokemons();
-    console.log('Pokemons from service:', pokemons); // Überprüfe die Struktur der Daten
     return pokemons;
   }
 

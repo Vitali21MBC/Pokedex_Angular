@@ -15,27 +15,33 @@ export class AboutComponent implements OnInit {
   pokemon: any; // Speicher für das Pokémon
   pokemonWeight: any;
   pokemonHeight: any;
+  chainID: any;
 
   constructor(private pokemonDataService: PokemonDataService) { }
 
   async ngOnInit() {
     if (this.selectedPokemonId) {
-      console.log('Pokemon ID von ZU ABout:', this.selectedPokemonId);
-      await this.loadingPokemonSpeciesData();
-      this.loadPokemonSpeciesDetails(this.selectedPokemonId);
       this.loadPokemonDetails(this.selectedPokemonId);
+      await this.fetchAndProcessPokemonSpecies();
+      this.loadPokemonSpeciesDetails(this.selectedPokemonId);
     }
   }
 
-  async loadingPokemonSpeciesData() {
-    await this.fetchAndProcessPokemonSpecies();
+  loadPokemonDetails(selectedPokemonId: number) {
+    const pokemons = this.pokemonDataService.getPokemons();
+
+    if (pokemons) {
+      this.pokemon = pokemons.find(p => p.id === selectedPokemonId) || null;
+      this.calculateHeightAndWeight();
+    } else {
+      console.error('Pokemons data is null or undefined.');
+    }
   }
 
   async fetchAndProcessPokemonSpecies() {
     try {
       const data = await this.pokemonDataService.fetchPokemonSpeciesData(this.selectedPokemonId!).toPromise();
       this.pushPokemonSpeciesInfoInArray(data);
-      console.log("LOL", data);
     } catch (error) {
       console.error('Fehler beim Laden der Pokemon-Spezies-Daten:', error);
     }
@@ -50,29 +56,25 @@ export class AboutComponent implements OnInit {
       habitat: eachPokemon['habitat']['name'],
       capture_rate: eachPokemon['capture_rate'],
       growth_rate: eachPokemon['growth_rate']['name'],
+      evo_url: eachPokemon['evolution_chain']['url'],
     };
     this.pokemonDataService.addPokemonSpecies(pokemonSpeciesData);
-    console.log("Pokemon SPEZIES DATA: ", pokemonSpeciesData);
   }
 
   loadPokemonSpeciesDetails(selectedPokemonId: number) {
-    const pokemons = this.pokemonDataService.getPokemonSpecies();
-    console.log('pokemon SPEZIES From Service:', pokemons); // Überprüfe die Liste der Pokémon
-    this.pokemonSpecies = pokemons.find(p => p.id === selectedPokemonId) || null;
-    console.log('Found pokemon Species ID form Service:', selectedPokemonId);
-    console.log('Found pokemon Species form Service:', this.pokemonSpecies);
+    const pokemonSpecies = this.pokemonDataService.getPokemonSpecies();
+
+    // Prüfen, ob pokemonSpecies null ist
+    if (pokemonSpecies && pokemonSpecies.id === selectedPokemonId) {
+      this.pokemonSpecies = pokemonSpecies;
+    } else {
+      console.error('Pokemon species data is null or does not match the selected ID.');
+    }
   }
 
-  loadPokemonDetails(selectedPokemonId: number) {
-    const pokemons = this.pokemonDataService.getPokemons();
-    console.log('pokemon From Service:', pokemons); // Überprüfe die Liste der Pokémon
-    this.pokemon = pokemons.find(p => p.id === selectedPokemonId) || null;
-    console.log('Found pokemon ID form Service:', selectedPokemonId);
-    console.log('Found pokemon form Service:', this.pokemon);
-    this.calculateHeightAndWeight();
-  }
 
-  calculateHeightAndWeight(){
+
+  calculateHeightAndWeight() {
     this.pokemonHeight = +this.pokemon.height / 10;
     this.pokemonWeight = +this.pokemon.weight / 10;
   }

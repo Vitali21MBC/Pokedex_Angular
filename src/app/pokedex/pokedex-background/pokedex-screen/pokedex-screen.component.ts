@@ -71,7 +71,6 @@ export class PokedexScreenComponent implements OnInit {
       sprite_shiny: eachPokemon['sprites']['other']['official-artwork']['front_shiny'],
     };
     this.pokemonDataService.addPokemon(pokemonBasicData);
-    console.log('Selected Pokemon ID:', this.selectedPokemonId);
   }
 
   pushOneTypeInArray(eachPokemon: any) {
@@ -86,7 +85,6 @@ export class PokedexScreenComponent implements OnInit {
       sprite_shiny: eachPokemon['sprites']['other']['official-artwork']['front_shiny'],
     };
     this.pokemonDataService.addPokemon(pokemonBasicData);
-    console.log('Selected Pokemon ID:', this.selectedPokemonId);
   }
 
   async loadMorePokemon() {
@@ -96,7 +94,6 @@ export class PokedexScreenComponent implements OnInit {
       this.newPokemonLoaded.next();
     }
     this.isLoading = false;
-    console.log('New Pokemon loaded, emitting event'); // Debug log
   }
 
   searchPokemon() {
@@ -123,7 +120,6 @@ export class PokedexScreenComponent implements OnInit {
 
   openPokemonInfoCard(pokemonId: number) {
     this.selectedPokemonId = pokemonId;
-    console.log('Selected Pokemon ID:', pokemonId);
     this.pokemonInfoIsOpen = true;
     this.pokemonDataService.setPokemonInfoIsOpen(this.pokemonInfoIsOpen);
   }

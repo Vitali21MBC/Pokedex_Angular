@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import aos from 'aos';
+import * as AOS from 'aos';
 import 'aos/dist/aos.css';
 
 @Component({
@@ -13,7 +13,7 @@ import 'aos/dist/aos.css';
 })
 export class AppComponent {
   title = 'pokedex';
-  AOS = aos;
+  AOS = AOS;
 
   constructor() {
     this.AOS.init({

@@ -28,6 +28,7 @@
              font-size: 20px;
              height: 40px;
              transition: 0.075s ease-in;
+             box-sizing: border-box;
 
              img {
                  height: 32px;
@@ -60,7 +61,6 @@
          }
 
          .nav-bar-active-line {
-             display: flex;
              position: absolute;
              bottom: 0;
              height: 3px;
@@ -81,6 +81,10 @@
          padding-right: 32px;
 
          app-about{
+            width: 100%;
+         }
+
+         app-evolution{
             width: 100%;
          }
      }

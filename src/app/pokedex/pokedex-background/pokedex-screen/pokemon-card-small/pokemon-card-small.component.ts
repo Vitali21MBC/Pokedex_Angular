@@ -25,56 +25,47 @@ export class PokemonCardSmallComponent implements OnInit, OnDestroy {
   filteredPokemons: any[] = [];
 
   ngOnInit() {
-    console.log('PokemonCardSmallComponent initialized');
     this.filteredPokemons = this.getPokemons(); // Initialisierung mit allen Pokémon
     this.subscription = this.pokedexScreenComponent.newPokemonLoaded.subscribe(() => {
-      console.log('New Pokemon loaded event received');
       this.scrollToBottom();
     });
-}
-
-setFilteredPokemons(pokemons: any[]) {
-  this.filteredPokemons = pokemons;
-}
-
-ngOnDestroy() {
-  if (this.subscription) {
-    this.subscription.unsubscribe();
   }
-}
 
-getPokemons() {
-  return this.pokemonDataService.getPokemons();
-}
+  setFilteredPokemons(pokemons: any[]) {
+    this.filteredPokemons = pokemons;
+  }
 
-formatPokemonId(id: number): string {
-  if (id < 10) return `#000${id}`;
-  else if (id < 100) return `#00${id}`;
-  else if (id < 1000) return `#0${id}`;
-  else return `#${id}`;
-}
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 
-backgroundColorAsType(type: string): string {
-  const pokemonTypes = this.pokemonDataService.getPokemonTypes();
-  const matchedType = pokemonTypes.find(t => t.type === type);
-  return matchedType ? matchedType.color : 'gray';
-}
+  getPokemons() {
+    return this.pokemonDataService.getPokemons();
+  }
 
-private scrollToBottom() {
-  console.log('Attempting to scroll to bottom');
-  setTimeout(() => {
-    const container = this.el.nativeElement;
-    console.log('Scrollable container:', container);
-    console.log('Scrolling to:', container.scrollHeight);
-    container.scrollTop = container.scrollHeight;
-  }, 300);
-}
+  formatPokemonId(id: number): string {
+    if (id < 10) return `#000${id}`;
+    else if (id < 100) return `#00${id}`;
+    else if (id < 1000) return `#0${id}`;
+    else return `#${id}`;
+  }
 
-openPokemonInfoCard(pokemonId: number) {
-  this.pokemonCardButtonClicked.emit(pokemonId);
-  console.log("Ausgewähltes Pokemon:", pokemonId);
-}
+  backgroundColorAsType(type: string): string {
+    const pokemonTypes = this.pokemonDataService.getPokemonTypes();
+    const matchedType = pokemonTypes.find(t => t.type === type);
+    return matchedType ? matchedType.color : 'gray';
+  }
 
+  private scrollToBottom() {
+    setTimeout(() => {
+      const container = this.el.nativeElement;
+      container.scrollTop = container.scrollHeight;
+    }, 300);
+  }
 
-
+  openPokemonInfoCard(pokemonId: number) {
+    this.pokemonCardButtonClicked.emit(pokemonId);
+  }
 }
