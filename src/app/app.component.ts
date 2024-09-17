@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import * as AOS from 'aos';
-import 'aos/dist/aos.css';
+import aos from 'aos';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +12,7 @@ import 'aos/dist/aos.css';
 })
 export class AppComponent {
   title = 'pokedex';
-  AOS = AOS;
+  AOS = aos;
 
   constructor() {
     this.AOS.init({
@@ -37,6 +36,5 @@ export class AppComponent {
       anchorPlacement: 'top-bottom', // defines which position of the element regarding to window should trigger the animation
     });
   }
-
 }
 

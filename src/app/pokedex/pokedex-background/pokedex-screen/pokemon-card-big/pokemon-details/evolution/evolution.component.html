@@ -1,1 +1,25 @@
-<app-one-first-evo [selectedPokemonId]="selectedPokemonId"></app-one-first-evo>
+<!-- Prüfen, ob pokemonEvoData und evolutions definiert sind -->
+<app-no-evolution 
+  *ngIf="pokemonEvoData?.evolutions?.length === 0" 
+  data-aos="fade-in">
+</app-no-evolution>
+
+<app-one-first-evo 
+  *ngIf="pokemonEvoData?.evolutions?.length === 1 && pokemonEvoData?.evolutions[0]?.evolves_to?.length === 0"
+  [selectedPokemonId]="selectedPokemonId" 
+  [lvlUpTrigger]="lvlUpTrigger" 
+  [pokemon]="pokemon" 
+  [firstEvoPokemonName]="firstEvoPokemonName"
+  data-aos="fade-in">
+</app-one-first-evo>
+
+<app-one-first-one-second-evo 
+*ngIf="pokemonEvoData?.evolutions?.length === 1 && pokemonEvoData?.evolutions[0]?.evolves_to?.length === 1"
+[selectedPokemonId]="selectedPokemonId" 
+[lvlUpTrigger]="lvlUpTrigger" 
+[lvlUpTriggerSecondEvo]="lvlUpTriggerSecondEvo" 
+[pokemon]="pokemon" 
+[firstEvoPokemonName]="firstEvoPokemonName"
+[secondEvoPokemonName]="secondEvoPokemonName"
+data-aos="fade-in">
+</app-one-first-one-second-evo>

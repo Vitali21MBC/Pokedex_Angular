@@ -62,6 +62,12 @@ interface PokemonFirstEvolutions {
   sprite_big: string,
 }
 
+interface PokemonSecondEvolutions {
+  id: number,
+  name: string,
+  sprite_big: string,
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -74,7 +80,8 @@ export class PokemonDataService {
   private pokemons: Pokemon[] = [];
   private pokemonSpecies: PokemonSpecies | null = null;
   private pokemonEvolutions: PokemonEvolutions | null = null;
-  private pokemonFirstEvolutions: PokemonFirstEvolutions | null = null;
+  public pokemonFirstEvolutions: PokemonFirstEvolutions | null = null;
+  public pokemonSecondEvolutions: PokemonSecondEvolutions | null = null;
 
   private pokemonInfoIsOpenSubject = new BehaviorSubject<boolean>(false);
   public pokemonInfoIsOpen$ = this.pokemonInfoIsOpenSubject.asObservable();
@@ -174,5 +181,21 @@ export class PokemonDataService {
 
   getPokemonFirstEvolutions(): PokemonFirstEvolutions | null {
     return this.pokemonFirstEvolutions;
+
+  }
+
+
+  fetchPokemonSecondEvolutionsData(pokemonName: string): Observable<any> {
+    const url = this.basicDataURL + pokemonName;
+    return this.http.get(url);
+  }
+
+  addPokemonSecondEvolutions(pokemon: PokemonFirstEvolutions) {
+    this.pokemonSecondEvolutions = pokemon;  // Speichere das Pokemon als einzelnes Objekt
+  }
+
+  getPokemonSecondEvolutions(): PokemonFirstEvolutions | null {
+    return this.pokemonSecondEvolutions;
+
   }
 }
