@@ -14,7 +14,7 @@ import { PokemonCardBigComponent } from './pokemon-card-big/pokemon-card-big.com
   styleUrl: './pokedex-screen.component.scss'
 })
 export class PokedexScreenComponent implements OnInit {
-  @ViewChild(PokemonCardSmallComponent) smallPokemonCards!: PokemonCardSmallComponent;
+  @ViewChild(PokemonCardSmallComponent) pokemonList!: PokemonCardSmallComponent;
   @ViewChild(PokemonCardBigComponent) bigPokemonCard!: PokemonCardBigComponent;
 
   selectedPokemonId: number | null = null;
@@ -23,13 +23,21 @@ export class PokedexScreenComponent implements OnInit {
   newPokemonLoaded = new Subject<void>();
   pokemonInfoIsOpen: boolean = false;
 
+  // Store the last scroll position of pokemon-list
+  lastScrollPosition: number = 0;
+
   constructor(private pokemonDataService: PokemonDataService) { }
 
   ngOnInit(): void {
-    // Abonniere den Zustand aus dem Service
     this.initialLoadOfPokemon();
     this.pokemonDataService.pokemonInfoIsOpen$.subscribe((isOpen: boolean) => {
       this.pokemonInfoIsOpen = isOpen;
+      if (!isOpen) {
+        // Use setTimeout to delay the scroll by a short duration (adjust as needed)
+        setTimeout(() => {
+          this.scrollToElement('pokemon-list', this.lastScrollPosition);
+        }, 25); // Adjust the delay as needed
+      }
     });
   }
 
@@ -110,18 +118,44 @@ export class PokedexScreenComponent implements OnInit {
         });
 
         // Setze die gefilterte Liste in der Child-Komponente
-        this.smallPokemonCards.setFilteredPokemons(filteredPokemons);
+        this.pokemonList.setFilteredPokemons(filteredPokemons);
       } else {
         // Setze alle Pokémon zurück, wenn der Suchbegriff weniger als 3 Zeichen hat
-        this.smallPokemonCards.setFilteredPokemons(this.pokemonDataService.getPokemons());
+        this.pokemonList.setFilteredPokemons(this.pokemonDataService.getPokemons());
       }
     }
   }
 
   openPokemonInfoCard(pokemonId: number) {
+    this.getScrollPosition();
+    console.log("lastScrollPosition", this.lastScrollPosition);
     this.selectedPokemonId = pokemonId;
     this.pokemonInfoIsOpen = true;
     this.pokemonDataService.setPokemonInfoIsOpen(this.pokemonInfoIsOpen);
+  }
+
+  getScrollPosition() {
+    const pokemonList = document.getElementById('pokemon-list');
+    if (pokemonList) {
+      this.lastScrollPosition = pokemonList.scrollTop;
+      console.log('Scroll position:', this.lastScrollPosition);
+    }
+  }
+
+  scrollToElement(elementId: string, scrollTo: number) {
+    const element = document.getElementById(elementId);
+
+    if (element) {
+      // Berechne die genaue Position, abhängig von deinem Layout und den Elementen
+      const targetPosition = scrollTo; // Passe diesen Wert an deine Bedürfnisse an
+
+      // Scrollen zur berechneten Position mit einem sanften Effekt
+      element.scrollTo({
+        top: targetPosition,
+      });
+    } else {
+      console.error('Element with ID', elementId, 'not found');
+    }
   }
 
 }
