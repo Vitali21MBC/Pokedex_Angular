@@ -2,18 +2,20 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-one-first-one-second-evo',
+  selector: 'app-one-first-two-second-evos',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './one-first-one-second-evo.component.html',
-  styleUrl: './one-first-one-second-evo.component.scss'
+  templateUrl: './one-first-two-second-evos.component.html',
+  styleUrl: './one-first-two-second-evos.component.scss'
 })
-export class OneFirstOneSecondEvoComponent {
+export class OneFirstTwoSecondEvosComponent {
   @Input() selectedPokemonId: number | null = null;
   @Input() lvlUpTrigger: string | null = null;
   @Input() lvlUpTriggerSecondEvo: string | null = null;
+  @Input() lvlUpTriggerSecondEvoSecondPokemon: string | null = null;
   @Input() pokemon: any;
   @Input() basePokemonData: any;
   @Input() firstEvoPokemonName: any;
   @Input() secondEvoPokemonName: any;
+  @Input() secondEvoSecondPokemonData: any;
 }

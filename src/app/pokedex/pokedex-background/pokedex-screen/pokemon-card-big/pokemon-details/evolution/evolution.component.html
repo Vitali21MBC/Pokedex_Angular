@@ -9,6 +9,7 @@
   [selectedPokemonId]="selectedPokemonId" 
   [lvlUpTrigger]="lvlUpTrigger" 
   [pokemon]="pokemon" 
+  [basePokemonData]="basePokemonData"
   [firstEvoPokemonName]="firstEvoPokemonName"
   data-aos="fade-in">
 </app-one-first-evo>
@@ -19,7 +20,34 @@
 [lvlUpTrigger]="lvlUpTrigger" 
 [lvlUpTriggerSecondEvo]="lvlUpTriggerSecondEvo" 
 [pokemon]="pokemon" 
+[basePokemonData]="basePokemonData"
 [firstEvoPokemonName]="firstEvoPokemonName"
 [secondEvoPokemonName]="secondEvoPokemonName"
 data-aos="fade-in">
 </app-one-first-one-second-evo>
+
+<app-two-first-evos 
+  *ngIf="pokemonEvoData?.evolutions?.length === 2 && pokemonEvoData?.evolutions[0]?.evolves_to?.length === 0"
+  [selectedPokemonId]="selectedPokemonId" 
+  [lvlUpTrigger]="lvlUpTrigger" 
+  [pokemon]="pokemon" 
+  [basePokemonData]="basePokemonData"
+  [firstEvoPokemonName]="firstEvoPokemonName"
+  [firstEvoSecondPokemonName]="firstEvoSecondPokemonName"
+  [lvlUpTriggerFirstEvoSecondPokemon]="lvlUpTriggerFirstEvoSecondPokemon" 
+    data-aos="fade-in">
+</app-two-first-evos>
+
+<app-one-first-two-second-evos
+*ngIf="pokemonEvoData?.evolutions?.length === 1 && pokemonEvoData?.evolutions[0]?.evolves_to?.length === 2"
+[selectedPokemonId]="selectedPokemonId" 
+[lvlUpTrigger]="lvlUpTrigger" 
+[lvlUpTriggerSecondEvo]="lvlUpTriggerSecondEvo" 
+[lvlUpTriggerSecondEvoSecondPokemon]="lvlUpTriggerSecondEvoSecondPokemon"
+[pokemon]="pokemon" 
+[basePokemonData]="basePokemonData"
+[firstEvoPokemonName]="firstEvoPokemonName"
+[secondEvoPokemonName]="secondEvoPokemonName"
+[secondEvoSecondPokemonData]="secondEvoSecondPokemonData"
+data-aos="fade-in">
+</app-one-first-two-second-evos>

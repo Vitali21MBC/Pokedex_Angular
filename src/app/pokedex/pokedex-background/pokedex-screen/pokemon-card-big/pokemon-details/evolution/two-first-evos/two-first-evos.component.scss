@@ -1,0 +1,112 @@
+.one-first-evolution {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+    .base-pokemon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        height: 200px;
+        width: 200px;
+
+        .pokemon-background {
+            height: 320px;
+            width: auto;
+            filter: opacity(0.05) invert(1);
+            position: absolute;
+            left: -60px;
+            bottom: -60px;
+            z-index: 2;
+        }
+
+        .base-pokemon-image {
+            height: 160px;
+            z-index: 3;
+        }
+
+        span {
+            position: absolute;
+            bottom: -60px;
+            text-transform: capitalize;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    }
+
+    .evolution-requirement {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+
+        img {
+            width: 120px;
+        }
+
+        .requirement {
+            position: absolute;
+            bottom: 10px;
+            text-transform: capitalize;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            width: 150px;
+            height: 24px;
+        }
+    }
+
+    .first-evolution {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        height: 200px;
+        width: 200px;
+
+        .pokemon-background {
+            height: 220px;
+            width: auto;
+            filter: opacity(0.05) invert(1);
+            position: absolute;
+            z-index: 2;
+        }
+
+        .first-evolution-image {
+            height: 180px;
+            z-index: 3;
+        }
+
+        span {
+            position: absolute;
+            bottom: -16px;
+            text-transform: capitalize;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    }
+}
+
+.evo-container{
+    height: 100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+.requirement-container{
+    height: 100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 30px;
+
+}

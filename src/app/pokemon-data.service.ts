@@ -55,6 +55,11 @@ export interface PokemonEvolutions {
   base_pokemon: string;
   evolutions: Evolution[]; // Verschachtelte Evolutionen
 }
+interface BasePokemon {
+  id: number,
+  name: string,
+  sprite_big: string,
+}
 
 interface PokemonFirstEvolutions {
   id: number,
@@ -80,6 +85,7 @@ export class PokemonDataService {
   private pokemons: Pokemon[] = [];
   private pokemonSpecies: PokemonSpecies | null = null;
   private pokemonEvolutions: PokemonEvolutions | null = null;
+  public basePokemon: PokemonFirstEvolutions | null = null;
   public pokemonFirstEvolutions: PokemonFirstEvolutions | null = null;
   public pokemonSecondEvolutions: PokemonSecondEvolutions | null = null;
 
@@ -170,6 +176,27 @@ export class PokemonDataService {
     return this.pokemonEvolutions;
   }
 
+
+
+
+
+  fetchBasePokemonData(pokemonName: string): Observable<any> {
+    const url = this.basicDataURL + pokemonName;
+    return this.http.get(url);
+  }
+
+  addBasePokemon(pokemon: BasePokemon) {
+    console.log("basePokemon GEPUSHT1", pokemon);
+    this.basePokemon = pokemon;  // Speichere das Pokemon als einzelnes Objekt
+    console.log("basePokemon GEPUSHT2",this.basePokemon);
+  }
+
+  getBasePokemon(): BasePokemon | null {
+    return this.basePokemon;
+  }
+
+
+
   fetchPokemonFirstEvolutionsData(pokemonName: string): Observable<any> {
     const url = this.basicDataURL + pokemonName;
     return this.http.get(url);
@@ -185,16 +212,62 @@ export class PokemonDataService {
   }
 
 
+
+  fetchPokemonFirstEvolutionsSecondPokemonData(pokemonName: string): Observable<any> {
+    const url = this.basicDataURL + pokemonName;
+    return this.http.get(url);
+  }
+
+  addPokemonFirstEvolutionsSecondPokemon(pokemon: PokemonFirstEvolutions) {
+    this.pokemonFirstEvolutions = pokemon;  // Speichere das Pokemon als einzelnes Objekt
+  }
+
+  getPokemonFirstEvolutionsSecondPokemon(): PokemonFirstEvolutions | null {
+    return this.pokemonFirstEvolutions;
+
+  }
+
+
+
+
+  fetchPokemonSecondEvolutionsSecondPokemonData(pokemonName: string): Observable<any> {
+    const url = this.basicDataURL + pokemonName;
+    return this.http.get(url);
+  }
+
+  addPokemonSecondEvolutionsSecondPokemon(pokemon: PokemonSecondEvolutions) {
+    this.pokemonSecondEvolutions = pokemon;  // Speichere das Pokemon als einzelnes Objekt
+  }
+
+  getPokemonSecondEvolutionsSecondPokemon(): PokemonSecondEvolutions | null {
+    return this.pokemonSecondEvolutions;
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   fetchPokemonSecondEvolutionsData(pokemonName: string): Observable<any> {
     const url = this.basicDataURL + pokemonName;
     return this.http.get(url);
   }
 
-  addPokemonSecondEvolutions(pokemon: PokemonFirstEvolutions) {
+  addPokemonSecondEvolutions(pokemon: PokemonSecondEvolutions) {
     this.pokemonSecondEvolutions = pokemon;  // Speichere das Pokemon als einzelnes Objekt
   }
 
-  getPokemonSecondEvolutions(): PokemonFirstEvolutions | null {
+  getPokemonSecondEvolutions(): PokemonSecondEvolutions | null {
     return this.pokemonSecondEvolutions;
 
   }

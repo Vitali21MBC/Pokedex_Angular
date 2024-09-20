@@ -14,6 +14,8 @@ export class OneFirstEvoComponent {
   @Input() lvlUpTrigger: string | null = null;
   @Input() pokemon: any;
   @Input() firstEvoPokemonName: any;
+  @Input() basePokemonData: any;
+
 
   constructor(private pokemonDataService: PokemonDataService) { }
 

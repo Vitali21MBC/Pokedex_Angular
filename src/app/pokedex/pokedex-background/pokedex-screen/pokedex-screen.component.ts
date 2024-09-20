@@ -19,6 +19,8 @@ export class PokedexScreenComponent implements OnInit {
 
   selectedPokemonId: number | null = null;
 
+  searchQuery: string = '';
+
   isLoading: boolean = false;
   newPokemonLoaded = new Subject<void>();
   pokemonInfoIsOpen: boolean = false;
@@ -33,10 +35,13 @@ export class PokedexScreenComponent implements OnInit {
     this.pokemonDataService.pokemonInfoIsOpen$.subscribe((isOpen: boolean) => {
       this.pokemonInfoIsOpen = isOpen;
       if (!isOpen) {
-        // Use setTimeout to delay the scroll by a short duration (adjust as needed)
         setTimeout(() => {
           this.scrollToElement('pokemon-list', this.lastScrollPosition);
-        }, 25); // Adjust the delay as needed
+          // Stelle sicher, dass der Filter erneut angewendet wird, wenn der Suchtext existiert
+          if (this.searchQuery.length >= 3) {
+            this.searchPokemon();
+          }
+        }, 25);
       }
     });
   }
@@ -102,29 +107,31 @@ export class PokedexScreenComponent implements OnInit {
       this.newPokemonLoaded.next();
     }
     this.isLoading = false;
-  }
-
-  searchPokemon() {
-    const searchElement = document.getElementById('searchPokemon') as HTMLInputElement;
-
-    if (searchElement) {
-      let search = searchElement.value.toLowerCase();
-
-      if (search.length >= 3) {
-        // Filtere die Pokémon-Liste basierend auf der Suchanfrage
-        const filteredPokemons = this.pokemonDataService.getPokemons().filter((element: any) => {
-          return element['type_1'].toLowerCase().includes(search) ||
-            element['name'].toLowerCase().includes(search);
-        });
-
-        // Setze die gefilterte Liste in der Child-Komponente
-        this.pokemonList.setFilteredPokemons(filteredPokemons);
-      } else {
-        // Setze alle Pokémon zurück, wenn der Suchbegriff weniger als 3 Zeichen hat
-        this.pokemonList.setFilteredPokemons(this.pokemonDataService.getPokemons());
-      }
+  
+    // Wende den Filter erneut an, wenn die Suchleiste nicht leer ist
+    if (this.searchQuery.length >= 3) {
+      this.searchPokemon();
     }
   }
+
+searchPokemon() {
+  const searchElement = document.getElementById('searchPokemon') as HTMLInputElement;
+
+  if (searchElement) {
+    this.searchQuery = searchElement.value.toLowerCase();
+
+    if (this.searchQuery.length >= 3) {
+      const filteredPokemons = this.pokemonDataService.getPokemons().filter((element: any) => {
+        return element['type_1'].toLowerCase().includes(this.searchQuery) ||
+          element['name'].toLowerCase().includes(this.searchQuery);
+      });
+
+      this.pokemonList.setFilteredPokemons(filteredPokemons);
+    } else {
+      this.pokemonList.setFilteredPokemons(this.pokemonDataService.getPokemons());
+    }
+  }
+}
 
   openPokemonInfoCard(pokemonId: number) {
     this.getScrollPosition();

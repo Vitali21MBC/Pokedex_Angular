@@ -1,0 +1,43 @@
+<div class="one-first-evolution" *ngIf="firstEvoPokemonName && pokemon && lvlUpTrigger" data-aos="fade-in">
+    <div class="base-pokemon">
+        <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
+        <img class="base-pokemon-image" [src]="basePokemonData.sprite_big" />
+        <span>{{basePokemonData.name}}</span>
+    </div>
+    <div class="evolution-requirement">
+        <img src="./../../../../../../../assets/img/evoArrowRight.svg">
+        <span class="requirement">{{lvlUpTrigger}}</span>
+    </div>
+    <div class="first-evolution">
+        <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
+        <img class="first-evolution-image" [src]="this.firstEvoPokemonName.sprite_big" />
+        <span>{{this.firstEvoPokemonName.name}}</span>
+    </div>
+
+
+
+    <div class="requirement-container">
+        <div class="evolution-requirement">
+            <img src="./../../../../../../../assets/img/evoArrowRight.svg">
+            <span class="requirement">{{lvlUpTriggerSecondEvo}}</span>
+        </div>
+        <div class="evolution-requirement">
+            <img src="./../../../../../../../assets/img/evoArrowRight.svg">
+            <span class="requirement">{{lvlUpTriggerSecondEvoSecondPokemon}}</span>
+        </div>
+    </div>
+
+
+    <div class="evo-container">
+        <div class="second-evolution">
+            <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
+            <img class="second-evolution-image" [src]="this.secondEvoPokemonName.sprite_big" />
+            <span>{{this.secondEvoPokemonName.name}}</span>
+        </div>
+        <div class="second-evolution">
+            <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
+            <img class="second-evolution-image" [src]="this.secondEvoSecondPokemonData.sprite_big" />
+            <span>{{this.secondEvoSecondPokemonData.name}}</span>
+        </div>
+    </div>
+</div>
