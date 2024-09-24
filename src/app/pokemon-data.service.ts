@@ -11,6 +11,7 @@ interface Pokemon {
   sprite: string;
   sprite_big: string;
   sprite_shiny: string;
+  abilities: string[];
 }
 
 interface PokemonSpecies {

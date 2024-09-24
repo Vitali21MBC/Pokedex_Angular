@@ -72,6 +72,9 @@ export class PokedexScreenComponent implements OnInit {
   }
 
   pushTwoTypesInArray(eachPokemon: any) {
+    const abilities = eachPokemon['abilities']
+      .map((abilityData: any) => abilityData['ability']['name'].replace('-', ' '));
+
     const pokemonBasicData = {
       id: eachPokemon['id'],
       name: eachPokemon['name'],
@@ -82,11 +85,19 @@ export class PokedexScreenComponent implements OnInit {
       sprite: eachPokemon['sprites']['front_default'],
       sprite_big: eachPokemon['sprites']['other']['official-artwork']['front_default'],
       sprite_shiny: eachPokemon['sprites']['other']['official-artwork']['front_shiny'],
+      abilities: abilities // Array der Fähigkeiten
     };
+    if (pokemonBasicData.abilities.length > 2) {
+      console.log("Neue Pokemon Basic Data", pokemonBasicData.abilities.length);
+      console.log("Neue Pokemon Basic Data", pokemonBasicData);
+    }
     this.pokemonDataService.addPokemon(pokemonBasicData);
   }
 
   pushOneTypeInArray(eachPokemon: any) {
+    const abilities = eachPokemon['abilities']
+      .map((abilityData: any) => abilityData['ability']['name'].replace('-', ' '));
+
     const pokemonBasicData = {
       id: eachPokemon['id'],
       name: eachPokemon['name'],
@@ -96,7 +107,12 @@ export class PokedexScreenComponent implements OnInit {
       sprite: eachPokemon['sprites']['front_default'],
       sprite_big: eachPokemon['sprites']['other']['official-artwork']['front_default'],
       sprite_shiny: eachPokemon['sprites']['other']['official-artwork']['front_shiny'],
+      abilities: abilities // Array der Fähigkeiten
     };
+    if (pokemonBasicData.abilities.length > 2) {
+      console.log("Neue Pokemon Basic Data", pokemonBasicData.abilities.length);
+      console.log("Neue Pokemon Basic Data", pokemonBasicData);
+    }
     this.pokemonDataService.addPokemon(pokemonBasicData);
   }
 
@@ -107,31 +123,31 @@ export class PokedexScreenComponent implements OnInit {
       this.newPokemonLoaded.next();
     }
     this.isLoading = false;
-  
+
     // Wende den Filter erneut an, wenn die Suchleiste nicht leer ist
     if (this.searchQuery.length >= 3) {
       this.searchPokemon();
     }
   }
 
-searchPokemon() {
-  const searchElement = document.getElementById('searchPokemon') as HTMLInputElement;
+  searchPokemon() {
+    const searchElement = document.getElementById('searchPokemon') as HTMLInputElement;
 
-  if (searchElement) {
-    this.searchQuery = searchElement.value.toLowerCase();
+    if (searchElement) {
+      this.searchQuery = searchElement.value.toLowerCase();
 
-    if (this.searchQuery.length >= 3) {
-      const filteredPokemons = this.pokemonDataService.getPokemons().filter((element: any) => {
-        return element['type_1'].toLowerCase().includes(this.searchQuery) ||
-          element['name'].toLowerCase().includes(this.searchQuery);
-      });
+      if (this.searchQuery.length >= 3) {
+        const filteredPokemons = this.pokemonDataService.getPokemons().filter((element: any) => {
+          return element['type_1'].toLowerCase().includes(this.searchQuery) ||
+            element['name'].toLowerCase().includes(this.searchQuery);
+        });
 
-      this.pokemonList.setFilteredPokemons(filteredPokemons);
-    } else {
-      this.pokemonList.setFilteredPokemons(this.pokemonDataService.getPokemons());
+        this.pokemonList.setFilteredPokemons(filteredPokemons);
+      } else {
+        this.pokemonList.setFilteredPokemons(this.pokemonDataService.getPokemons());
+      }
     }
   }
-}
 
   openPokemonInfoCard(pokemonId: number) {
     this.getScrollPosition();
