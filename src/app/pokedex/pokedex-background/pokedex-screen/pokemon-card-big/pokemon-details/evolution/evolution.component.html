@@ -51,3 +51,18 @@ data-aos="fade-in">
 [secondEvoSecondPokemonData]="secondEvoSecondPokemonData"
 data-aos="fade-in">
 </app-one-first-two-second-evos>
+
+
+<app-three-first-evos
+*ngIf="pokemonEvoData?.evolutions?.length === 3 && pokemonEvoData?.evolutions[0]?.evolves_to?.length === 0"
+[selectedPokemonId]="selectedPokemonId" 
+[lvlUpTrigger]="lvlUpTrigger" 
+[lvlUpTriggerFirstEvoSecondPokemon]="lvlUpTriggerFirstEvoSecondPokemon"
+[lvlUpTriggerFirstEvoThirdPokemon]="lvlUpTriggerFirstEvoThirdPokemon"
+[pokemon]="pokemon" 
+[basePokemonData]="basePokemonData"
+[firstEvoPokemonName]="firstEvoPokemonName"
+[firstEvoSecondPokemonName]="firstEvoSecondPokemonName"
+[firstEvoThirdPokemonData]="firstEvoThirdPokemonData"
+data-aos="fade-in">
+</app-three-first-evos>

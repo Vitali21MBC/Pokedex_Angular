@@ -249,6 +249,24 @@ export class PokemonDataService {
 
 
 
+  fetchPokemonFirstEvolutionsThirdPokemonData(pokemonName: string): Observable<any> {
+    const url = this.basicDataURL + pokemonName;
+    return this.http.get(url);
+  }
+
+  addPokemonFirstEvolutionsThirdPokemon(pokemon: PokemonFirstEvolutions) {
+    this.pokemonFirstEvolutions = pokemon;  // Speichere das Pokemon als einzelnes Objekt
+  }
+
+  getPokemonFirstEvolutionsThirdPokemon(): PokemonFirstEvolutions | null {
+    return this.pokemonFirstEvolutions;
+
+  }
+
+
+
+
+
 
 
 

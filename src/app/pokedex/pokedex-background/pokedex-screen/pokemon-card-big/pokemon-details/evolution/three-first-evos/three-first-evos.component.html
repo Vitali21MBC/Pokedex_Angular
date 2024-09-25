@@ -1,0 +1,51 @@
+<div class="one-first-evolution" *ngIf="firstEvoPokemonName && pokemon && lvlUpTrigger" data-aos="fade-in">
+    <div class="base-pokemon">
+        <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
+        <img class="base-pokemon-image" [src]="basePokemonData.sprite_big" />
+        <span>{{basePokemonData.name}}</span>
+    </div>
+
+    <div class="requirement-wrapper">
+        <div class="requirement-container jc-space-between">
+            <div class="evolution-requirement">
+                <img src="./../../../../../../../assets/img/evoArrowRight.svg">
+                <span class="requirement">{{lvlUpTrigger}}</span>
+            </div>
+            <div class="evolution-requirement">
+                <img src="./../../../../../../../assets/img/evoArrowRight.svg">
+                <span class="requirement">{{lvlUpTriggerFirstEvoSecondPokemon}}</span>
+            </div>
+        </div>
+
+        <div class="requirement-container">
+            <div class="evolution-requirement">
+                <img src="./../../../../../../../assets/img/evoArrowRight.svg">
+                <span class="requirement">{{lvlUpTriggerFirstEvoThirdPokemon}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="evo-wrapper">
+        <div class="evo-container jc-space-between">
+            <div class="first-evolution">
+                <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
+                <img class="first-evolution-image" [src]="this.firstEvoPokemonName.sprite_big" />
+                <span>{{this.firstEvoPokemonName.name}}</span>
+            </div>
+            <div class="first-evolution">
+                <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
+                <img class="first-evolution-image" [src]="this.firstEvoSecondPokemonName.sprite_big" />
+                <span>{{this.firstEvoSecondPokemonName.name}}</span>
+            </div>
+        </div>
+
+        <div class="evo-container">
+            <div class="first-evolution">
+                <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
+                <img class="first-evolution-image" [src]="this.firstEvoThirdPokemonData.sprite_big" />
+                <span>{{this.firstEvoThirdPokemonData.name}}</span>
+            </div>
+        </div>
+    </div>
+
+</div>
