@@ -87,7 +87,7 @@ export class PokemonDataService {
   private pokemonSpecies: PokemonSpecies | null = null;
   private pokemonEvolutions: PokemonEvolutions | null = null;
   public basePokemon: PokemonFirstEvolutions | null = null;
-  public pokemonFirstEvolutions: PokemonFirstEvolutions | null = null;
+  public pokemonFirstEvolutions: PokemonFirstEvolutions[] = [];
   public pokemonSecondEvolutions: PokemonSecondEvolutions | null = null;
 
   private pokemonInfoIsOpenSubject = new BehaviorSubject<boolean>(false);
@@ -204,29 +204,17 @@ export class PokemonDataService {
   }
 
   addPokemonFirstEvolutions(pokemon: PokemonFirstEvolutions) {
-    this.pokemonFirstEvolutions = pokemon;  // Speichere das Pokemon als einzelnes Objekt
+    this.pokemonFirstEvolutions.push(pokemon);  // Speichere das Pokemon als einzelnes Objekt
+    console.log("???????????????",this.pokemonFirstEvolutions);
   }
 
-  getPokemonFirstEvolutions(): PokemonFirstEvolutions | null {
+  getPokemonFirstEvolutions(): PokemonFirstEvolutions[] {
     return this.pokemonFirstEvolutions;
-
   }
 
 
 
-  fetchPokemonFirstEvolutionsSecondPokemonData(pokemonName: string): Observable<any> {
-    const url = this.basicDataURL + pokemonName;
-    return this.http.get(url);
-  }
-
-  addPokemonFirstEvolutionsSecondPokemon(pokemon: PokemonFirstEvolutions) {
-    this.pokemonFirstEvolutions = pokemon;  // Speichere das Pokemon als einzelnes Objekt
-  }
-
-  getPokemonFirstEvolutionsSecondPokemon(): PokemonFirstEvolutions | null {
-    return this.pokemonFirstEvolutions;
-
-  }
+ 
 
 
 
@@ -249,20 +237,7 @@ export class PokemonDataService {
 
 
 
-  fetchPokemonFirstEvolutionsThirdPokemonData(pokemonName: string): Observable<any> {
-    const url = this.basicDataURL + pokemonName;
-    return this.http.get(url);
-  }
-
-  addPokemonFirstEvolutionsThirdPokemon(pokemon: PokemonFirstEvolutions) {
-    this.pokemonFirstEvolutions = pokemon;  // Speichere das Pokemon als einzelnes Objekt
-  }
-
-  getPokemonFirstEvolutionsThirdPokemon(): PokemonFirstEvolutions | null {
-    return this.pokemonFirstEvolutions;
-
-  }
-
+ 
 
 
 

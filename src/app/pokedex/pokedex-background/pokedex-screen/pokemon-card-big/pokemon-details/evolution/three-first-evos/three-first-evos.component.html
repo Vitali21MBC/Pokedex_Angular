@@ -9,18 +9,18 @@
         <div class="requirement-container jc-space-between">
             <div class="evolution-requirement">
                 <img src="./../../../../../../../assets/img/evoArrowRight.svg">
-                <span class="requirement">{{lvlUpTrigger}}</span>
+                <span class="requirement">{{lvlUpTrigger[0]}}</span>
             </div>
             <div class="evolution-requirement">
                 <img src="./../../../../../../../assets/img/evoArrowRight.svg">
-                <span class="requirement">{{lvlUpTriggerFirstEvoSecondPokemon}}</span>
+                <span class="requirement">{{lvlUpTrigger[1]}}</span>
             </div>
         </div>
 
         <div class="requirement-container">
             <div class="evolution-requirement">
                 <img src="./../../../../../../../assets/img/evoArrowRight.svg">
-                <span class="requirement">{{lvlUpTriggerFirstEvoThirdPokemon}}</span>
+                <span class="requirement">{{lvlUpTrigger[2]}}</span>
             </div>
         </div>
     </div>
@@ -29,21 +29,21 @@
         <div class="evo-container jc-space-between">
             <div class="first-evolution">
                 <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
-                <img class="first-evolution-image" [src]="this.firstEvoPokemonName.sprite_big" />
-                <span>{{this.firstEvoPokemonName.name}}</span>
+                <img class="first-evolution-image" [src]="this.firstEvoPokemonName[0].sprite_big" />
+                <span>{{this.firstEvoPokemonName[0].name}}</span>
             </div>
             <div class="first-evolution">
                 <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
-                <img class="first-evolution-image" [src]="this.firstEvoSecondPokemonName.sprite_big" />
-                <span>{{this.firstEvoSecondPokemonName.name}}</span>
+                <img class="first-evolution-image" [src]="this.firstEvoPokemonName[1].sprite_big" />
+                <span>{{this.firstEvoPokemonName[1].name}}</span>
             </div>
         </div>
 
         <div class="evo-container">
             <div class="first-evolution">
                 <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
-                <img class="first-evolution-image" [src]="this.firstEvoThirdPokemonData.sprite_big" />
-                <span>{{this.firstEvoThirdPokemonData.name}}</span>
+                <img class="first-evolution-image" [src]="this.firstEvoPokemonName[2].sprite_big" />
+                <span>{{this.firstEvoPokemonName[2].name}}</span>
             </div>
         </div>
     </div>

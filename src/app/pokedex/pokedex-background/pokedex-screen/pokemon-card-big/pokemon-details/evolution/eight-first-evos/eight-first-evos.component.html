@@ -1,0 +1,153 @@
+<div class="main-container" *ngIf="firstEvoPokemonName.length == 8 && pokemon && lvlUpTrigger">
+    <div class="item poke-evo-1">
+        <div class="first-evolution">
+            <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
+            <img class="first-evolution-image" [src]="this.firstEvoPokemonName[0].sprite_big" />
+            <span class="top-pokemon-names">{{this.firstEvoPokemonName[0].name}}</span>
+        </div>
+    </div>
+    <div class="item arrow-up-1">
+        <div class="requirement-container">
+            <div class="evolution-requirement">
+                <img class="arrow-up" src="./../../../../../../../assets/img/evoArrowRight.svg">
+            </div>
+        </div>
+    </div>
+    <div class="item lvl-up-req-1">
+        <span class="requirement">{{lvlUpTrigger[0]}}</span>
+    </div>
+
+    <div class="item poke-evo-2">
+        <div class="first-evolution">
+            <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
+            <img class="first-evolution-image" [src]="this.firstEvoPokemonName[1].sprite_big" />
+            <span class="top-pokemon-names">{{this.firstEvoPokemonName[1].name}}</span>
+        </div>
+    </div>
+    <div class="item arrow-up-2">
+        <div class="requirement-container">
+            <div class="evolution-requirement">
+                <img class="arrow-up" src="./../../../../../../../assets/img/evoArrowRight.svg">
+
+            </div>
+        </div>
+    </div>
+    <div class="item lvl-up-req-2">
+        <span class="requirement">{{lvlUpTrigger[1]}}</span>
+    </div>
+
+    <div class="item poke-evo-3">
+        <div class="first-evolution">
+            <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
+            <img class="first-evolution-image" [src]="this.firstEvoPokemonName[2].sprite_big" />
+            <span class="top-pokemon-names">{{this.firstEvoPokemonName[2].name}}</span>
+        </div>
+    </div>
+    <div class="item arrow-up-3">
+        <div class="requirement-container">
+            <div class="evolution-requirement">
+                <img class="arrow-up" src="./../../../../../../../assets/img/evoArrowRight.svg">
+            </div>
+        </div>
+    </div>
+    <div class="item lvl-up-req-3">
+        <span class="requirement">{{lvlUpTrigger[2]}}</span>
+    </div>
+
+    <div class="item poke-evo-4">
+        <div class="first-evolution">
+            <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
+            <img class="first-evolution-image" [src]="this.firstEvoPokemonName[3].sprite_big" />
+            <span>{{this.firstEvoPokemonName[3].name}}</span>
+        </div>
+    </div>
+    <div class="item arrow-left-4">
+        <div class="requirement-container">
+            <div class="evolution-requirement">
+                <img class="arrow-left" src="./../../../../../../../assets/img/evoArrowRight.svg">
+            </div>
+        </div>
+    </div>
+    <div class="item lvl-up-req-4">
+        <span class="requirement">{{lvlUpTrigger[3]}}</span>
+    </div>
+
+    <div class="item poke-evo-5">
+        <div class="first-evolution">
+            <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
+            <img class="first-evolution-image" [src]="this.firstEvoPokemonName[4].sprite_big" />
+            <span>{{this.firstEvoPokemonName[4].name}}</span>
+        </div>
+    </div>
+    <div class="item arrow-right-5">
+        <div class="requirement-container">
+            <div class="evolution-requirement">
+                <img class="arrow-right" src="./../../../../../../../assets/img/evoArrowRight.svg">
+            </div>
+        </div>
+    </div>
+    <div class="item lvl-up-req-5">
+        <span class="requirement">{{lvlUpTrigger[4]}}</span>
+    </div>
+
+    <div class="item poke-evo-6">
+        <div class="first-evolution">
+            <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
+            <img class="first-evolution-image" [src]="this.firstEvoPokemonName[5].sprite_big" />
+            <span>{{this.firstEvoPokemonName[5].name}}</span>
+        </div>
+    </div>
+    <div class="item arrow-down-6">
+        <div class="requirement-container">
+            <div class="evolution-requirement">
+                <img class="arrow-down" src="./../../../../../../../assets/img/evoArrowRight.svg">
+            </div>
+        </div>
+    </div>
+    <div class="item lvl-up-req-6">
+        <span class="requirement">{{lvlUpTrigger[5]}}</span>
+    </div>
+
+    <div class="item poke-evo-7">
+        <div class="first-evolution">
+            <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
+            <img class="first-evolution-image" [src]="this.firstEvoPokemonName[6].sprite_big" />
+            <span>{{this.firstEvoPokemonName[6].name}}</span>
+        </div>
+    </div>
+    <div class="item arrow-down-7">
+        <div class="requirement-container">
+            <div class="evolution-requirement">
+                <img class="arrow-down" src="./../../../../../../../assets/img/evoArrowRight.svg">
+            </div>
+        </div>
+    </div>
+    <div class="item lvl-up-req-7">
+        <span class="requirement">{{lvlUpTrigger[6]}}</span>
+    </div>
+
+    <div class="item poke-evo-8">
+        <div class="first-evolution">
+            <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
+            <img class="first-evolution-image" [src]="this.firstEvoPokemonName[7].sprite_big" />
+            <span>{{this.firstEvoPokemonName[7].name}}</span>
+        </div>
+    </div>
+    <div class="item arrow-down-8">
+        <div class="requirement-container">
+            <div class="evolution-requirement">
+                <img class="arrow-down" src="./../../../../../../../assets/img/evoArrowRight.svg">
+            </div>
+        </div>
+    </div>
+    <div class="item lvl-up-req-8">
+        <span class="requirement">{{lvlUpTrigger[7]}}</span>
+    </div>
+
+    <div class="item base-pokemon-container">
+        <div class="base-pokemon">
+            <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
+            <img class="base-pokemon-image" [src]="basePokemonData.sprite_big" />
+        </div>
+    </div>
+</div>

@@ -33,8 +33,6 @@ data-aos="fade-in">
   [pokemon]="pokemon" 
   [basePokemonData]="basePokemonData"
   [firstEvoPokemonName]="firstEvoPokemonName"
-  [firstEvoSecondPokemonName]="firstEvoSecondPokemonName"
-  [lvlUpTriggerFirstEvoSecondPokemon]="lvlUpTriggerFirstEvoSecondPokemon" 
     data-aos="fade-in">
 </app-two-first-evos>
 
@@ -57,6 +55,16 @@ data-aos="fade-in">
 *ngIf="pokemonEvoData?.evolutions?.length === 3 && pokemonEvoData?.evolutions[0]?.evolves_to?.length === 0"
 [selectedPokemonId]="selectedPokemonId" 
 [lvlUpTrigger]="lvlUpTrigger" 
+[pokemon]="pokemon" 
+[basePokemonData]="basePokemonData"
+[firstEvoPokemonName]="firstEvoPokemonName"
+data-aos="fade-in">
+</app-three-first-evos>
+
+<app-eight-first-evos
+*ngIf="pokemonEvoData?.evolutions?.length === 8 && pokemonEvoData?.evolutions[0]?.evolves_to?.length === 0"
+[selectedPokemonId]="selectedPokemonId" 
+[lvlUpTrigger]="lvlUpTrigger" 
 [lvlUpTriggerFirstEvoSecondPokemon]="lvlUpTriggerFirstEvoSecondPokemon"
 [lvlUpTriggerFirstEvoThirdPokemon]="lvlUpTriggerFirstEvoThirdPokemon"
 [pokemon]="pokemon" 
@@ -64,5 +72,5 @@ data-aos="fade-in">
 [firstEvoPokemonName]="firstEvoPokemonName"
 [firstEvoSecondPokemonName]="firstEvoSecondPokemonName"
 [firstEvoThirdPokemonData]="firstEvoThirdPokemonData"
-data-aos="fade-in">
-</app-three-first-evos>
+data-aos="fade-in">>
+</app-eight-first-evos>
