@@ -55,35 +55,21 @@ export class EvolutionComponent implements OnInit {
   constructor(private pokemonDataService: PokemonDataService) { }
 
   async ngOnInit() {
-    await this.fetchAndProcessPokemonEvolutions();
-    this.loadPokemonEvolutionDetails();
-    if (this.basePokemonName) {
-      await this.fetchAndProcessBasePokemon();
-      this.loadBasePokemonDetails();
-    }
+    await this.fetchPokemonEvolutionsData();
+    this.loadPokemonEvolutionDataFromArray();
     if (this.firstEvolutionNames.length > 0) {
       await this.fetchAndProcessPokemonFirstEvolution();
       this.loadPokemonFirstEvolutionDetails();
-      this.getLevelUpInfoFirstEvo();
-    }
-    if (this.secondEvolutionName) {
-      await this.fetchAndProcessPokemonSecondEvolution();
-      this.loadPokemonSecondEvolutionDetails();
-      this.getLevelUpInfoSecondEvo();
-    }
-    if (this.secondEvolutionSecondName) {
-      await this.fetchAndProcessPokemonSecondEvolutionSecondPokemon();
-      this.loadPokemonSecondEvolutionSecondPokemonDetails();
-      this.getLevelUpInfoSecondEvoSecondPokemon();
+      this.getLevelUpInfo(this.pokemonEvoData['evolutions']);
     }
   }
 
   // Diese Funktion fetcht die Evolutionsdaten des Basis Pokemon.
   // Das dient dazu, dass ich die Namen der Entwicklungen vom Basis Pokemon erhalte.
-  async fetchAndProcessPokemonEvolutions() {
+  async fetchPokemonEvolutionsData() {
     try {
       const data = await this.pokemonDataService.fetchPokemonEvolutionsData().toPromise();
-      this.pushPokemonEvolutionInfoInArray(data);
+      this.pushPokemonEvolutionDataInArray(data);
 
     } catch (error) {
       console.error('Fehler beim Laden der Pokemon-Spezies-Daten:', error);
@@ -91,7 +77,7 @@ export class EvolutionComponent implements OnInit {
   }
 
   // Diese Funktion baut das Array auf, damit die Daten abgespeichert werden, wie gewünscht.
-  pushPokemonEvolutionInfoInArray(eachPokemon: any) {
+  pushPokemonEvolutionDataInArray(eachPokemon: any) {
     // Hilfsfunktion, um die Evolutionen rekursiv aufzubauen
     const buildEvolutions = (evolutionChain: any): Evolution[] => {
       return evolutionChain.map((evolution: any) => ({
@@ -130,75 +116,23 @@ export class EvolutionComponent implements OnInit {
     console.log("TEEEESSSST", pokemonEvolutionsData);
   }
 
-  // Mit dieser Funktion werden die Evolutionsdaten aus dem DataServce geladen, damit man von hier aus zugreifen kann.
-  loadPokemonEvolutionDetails() {
+  loadPokemonEvolutionDataFromArray() {
     this.pokemonEvoData = this.pokemonDataService.getPokemonEvolutions();
+    this.firstEvolutionNames = [];
+    this.firstEvolutionNames.push(this.pokemonEvoData.base_pokemon);
+    this.collectEvolutionNames(this.pokemonEvoData.evolutions);
+    console.log("All Evolution Names:", this.firstEvolutionNames);
+  }
 
-    // Prüfen, ob das evolutions-Array existiert und mindestens ein Element enthält
-    if (this.pokemonEvoData.evolutions && this.pokemonEvoData.evolutions.length > 0) {
-      // Basis-Pokemon-Name setzen
-      this.basePokemonName = this.pokemonEvoData.base_pokemon;
-      for (let i = 0; i < this.pokemonEvoData.evolutions.length; i++) {
-        const element = this.pokemonEvoData.evolutions[i].name;
-        this.firstEvolutionNames.push(element);
+  collectEvolutionNames(evolutionChain: any[]) {
+    for (let i = 0; i < evolutionChain.length; i++) {
+      const evolutionName = evolutionChain[i].name;
+      this.firstEvolutionNames.push(evolutionName);
+
+      if (evolutionChain[i].evolves_to && evolutionChain[i].evolves_to.length > 0) {
+        this.collectEvolutionNames(evolutionChain[i].evolves_to);
       }
-      console.log("!!!!!!!!!!!!!!!!!!!!!!!!!:", this.firstEvolutionNames);
-      console.log("pokemonEvoData:", this.pokemonEvoData);
-
-      // Prüfen, ob die erste Evolution eine weitere Evolution hat
-      if (this.pokemonEvoData.evolutions[0].evolves_to && this.pokemonEvoData.evolutions[0].evolves_to.length > 0) {
-        this.secondEvolutionName = this.pokemonEvoData.evolutions[0].evolves_to[0].name;
-
-        if (this.pokemonEvoData.evolutions[0].evolves_to[1]) {
-          this.secondEvolutionSecondName = this.pokemonEvoData.evolutions[0].evolves_to[1].name;
-        }
-
-
-      }
-
-    } else {
-      // Wenn keine Evolution vorhanden ist
-      this.basePokemonName = this.pokemonEvoData.base_pokemon;
-      this.secondEvolutionName = null;
-      this.secondEvolutionSecondName = null;
-      console.log("No evolutions available.");
     }
-
-    // Debug-Ausgaben
-    console.log("Base Pokemon Name:", this.basePokemonName);
-    console.log("Second Evolution Name:", this.secondEvolutionName);
-    console.log("Second Evolution Second Name:", this.secondEvolutionSecondName);
-    console.log("FIRST EVOLUTION NAMES:", this.firstEvolutionNames);
-  }
-
-  // Da die Entwicklungen des Basis Pokemon nun in einem Array vorhanden sind, kann nun mit dieser Funktion die Grunddaten der Entwicklungen gefetcht werden.
-  // Damit ich Zugriff auf das Sprite der Entwicklung habe und es darstellen kann.
-  // Das wäre theoretisch bereits möglich über die Grunddaten der in der Übersicht bereits geladenen Pokemon.
-  // Jedoch haben manche Pokemon Entwicklungen, die aus späteren Generationen erst dazugekommen sind. Diese könnten dann noch nicht vorhanden sein im Grunddaten
-  // Array, wenn nicht genügend Pokemon vorgeladen worden sind.
-  async fetchAndProcessBasePokemon() {
-    try {
-      const data = await this.pokemonDataService.fetchBasePokemonData(this.basePokemonName).toPromise();
-      this.pushBasePokemonInfoInArray(data);
-      console.log("dataBASE", data);
-    } catch (error) {
-      console.error('Fehler beim Laden der Pokemon-Spezies-Daten:', error);
-    }
-  }
-
-  // Diese Funktion speichert die benötigten Daten der Entwicklung des Base Pokemon ab, damit diese abgerufen werden können.
-  pushBasePokemonInfoInArray(eachPokemon: any) {
-    const pokemonBaseData = {
-      id: eachPokemon['id'],
-      name: eachPokemon['name'],
-      sprite_big: eachPokemon['sprites']['other']['official-artwork']['front_default'],
-    };
-    this.pokemonDataService.addBasePokemon(pokemonBaseData);
-  }
-
-  loadBasePokemonDetails() {
-    this.basePokemonData = this.pokemonDataService.getBasePokemon();
-    console.log("this.basePokemonData!!!!", this.basePokemonData);
   }
 
   // Da die Entwicklungen des Basis Pokemon nun in einem Array vorhanden sind, kann nun mit dieser Funktion die Grunddaten der Entwicklungen gefetcht werden.
@@ -235,67 +169,9 @@ export class EvolutionComponent implements OnInit {
     console.log("this.firstEvoPokemonName", this.firstEvoPokemonName);
   }
 
-  // Da die Entwicklungen des Basis Pokemon nun in einem Array vorhanden sind, kann nun mit dieser Funktion die Grunddaten der Entwicklungen gefetcht werden.
-  // Damit ich Zugriff auf das Sprite der Entwicklung habe und es darstellen kann.
-  // Das wäre theoretisch bereits möglich über die Grunddaten der in der Übersicht bereits geladenen Pokemon.
-  // Jedoch haben manche Pokemon Entwicklungen, die aus späteren Generationen erst dazugekommen sind. Diese könnten dann noch nicht vorhanden sein im Grunddaten
-  // Array, wenn nicht genügend Pokemon vorgeladen worden sind.
-  async fetchAndProcessPokemonSecondEvolution() {
-    try {
-      const data = await this.pokemonDataService.fetchPokemonSecondEvolutionsData(this.secondEvolutionName).toPromise();
-      this.pushPokemonSecondEvolutionInfoInArray(data);
-    } catch (error) {
-      console.error('Fehler beim Laden der Pokemon-Spezies-Daten:', error);
-    }
-  }
-
-  // Diese Funktion speichert die benötigten Daten der Entwicklung des Base Pokemon ab, damit diese abgerufen werden können.
-  pushPokemonSecondEvolutionInfoInArray(eachPokemon: any) {
-    const pokemonSecondEvoBaseData = {
-      id: eachPokemon['id'],
-      name: eachPokemon['name'],
-      sprite_big: eachPokemon['sprites']['other']['official-artwork']['front_default'],
-    };
-    this.pokemonDataService.addPokemonSecondEvolutions(pokemonSecondEvoBaseData);
-  }
-
-  loadPokemonSecondEvolutionDetails() {
-    this.secondEvoPokemonName = this.pokemonDataService.getPokemonSecondEvolutions();
-    console.log("TEST secondEvoPokemonName", this.secondEvoPokemonName);
-  }
-
-  // Da die Entwicklungen des Basis Pokemon nun in einem Array vorhanden sind, kann nun mit dieser Funktion die Grunddaten der Entwicklungen gefetcht werden.
-  // Damit ich Zugriff auf das Sprite der Entwicklung habe und es darstellen kann.
-  // Das wäre theoretisch bereits möglich über die Grunddaten der in der Übersicht bereits geladenen Pokemon.
-  // Jedoch haben manche Pokemon Entwicklungen, die aus späteren Generationen erst dazugekommen sind. Diese könnten dann noch nicht vorhanden sein im Grunddaten
-  // Array, wenn nicht genügend Pokemon vorgeladen worden sind.
-  async fetchAndProcessPokemonSecondEvolutionSecondPokemon() {
-    try {
-      const data = await this.pokemonDataService.fetchPokemonSecondEvolutionsSecondPokemonData(this.secondEvolutionSecondName).toPromise();
-      this.pushPokemonSecondEvolutionSecondPokemonInfoInArray(data);
-    } catch (error) {
-      console.error('Fehler beim Laden der Pokemon-Spezies-Daten:', error);
-    }
-  }
-
-  // Diese Funktion speichert die benötigten Daten der Entwicklung des Base Pokemon ab, damit diese abgerufen werden können.
-  pushPokemonSecondEvolutionSecondPokemonInfoInArray(eachPokemon: any) {
-    const pokemonSecondEvoBaseData = {
-      id: eachPokemon['id'],
-      name: eachPokemon['name'],
-      sprite_big: eachPokemon['sprites']['other']['official-artwork']['front_default'],
-    };
-    this.pokemonDataService.addPokemonSecondEvolutionsSecondPokemon(pokemonSecondEvoBaseData);
-  }
-
-  loadPokemonSecondEvolutionSecondPokemonDetails() {
-    this.secondEvoSecondPokemonData = this.pokemonDataService.getPokemonSecondEvolutionsSecondPokemon();
-    console.log("TEST secondEvoPokemonName", this.secondEvoSecondPokemonData);
-  }
-
-  getLevelUpInfoFirstEvo() {
-    for (let i = 0; i < this.pokemonEvoData['evolutions'].length; i++) {
-      const evoDetails = this.pokemonEvoData['evolutions'][i]['evolution_details'][`0`];
+  getLevelUpInfo(evolutionChain: any[]) {
+    for (let i = 0; i < evolutionChain.length; i++) {
+      const evoDetails = evolutionChain[i]['evolution_details'][0];
       let reqText = "";
       if (evoDetails['trigger'] == 'level-up') {
         if (evoDetails['min_level'] !== null && evoDetails['relative_physical_stats'] !== null) {
@@ -316,111 +192,28 @@ export class EvolutionComponent implements OnInit {
           reqText = `LvlUp with Learned Move ` + `"` + evoDetails['known_move'] + `"`;
         } else if (evoDetails['known_move_type'] !== null) {
           reqText = `LvlUp with ` + evoDetails['known_move_type'] + `-Type Move learned`;
-        } else if (evoDetails['time_of_day'] !== "" && evoDetails['held_item'] !== null) {
-          reqText = `LvlUp during ` + evoDetails['time_of_day'] + `time and item held ` + evoDetails['held_item'];
         } else if (evoDetails['location'] !== null) {
           reqText = `LvlUp in Location ` + evoDetails['location'];
-        } else {
-          this.notDeclared = `Noch etwas anderes`;
         }
       } else if (evoDetails['trigger'] == 'use-item') {
         if (evoDetails['item'] !== null) {
           reqText = evoDetails['item'];
-        } else {
-          this.notDeclared = `Noch etwas anderes`;
         }
       } else if (evoDetails['trigger'] == 'trade') {
         if (evoDetails['held_item'] !== null) {
           reqText = `Trade with Held Item ` + `"` + evoDetails['held_item'] + `"`;
-        } else if (evoDetails['held_item'] == null) {
-          reqText = `Trade`;
         } else {
-          this.notDeclared = `Noch etwas anderes`;
+          reqText = `Trade`;
         }
       } else if (evoDetails['trigger'] == 'three-critical-hits') {
         reqText = `Give 3x Crit. Hits in one Battle`;
       }
       this.lvlUpTrigger.push(reqText);
+      if (evolutionChain[i]['evolves_to'] && evolutionChain[i]['evolves_to'].length > 0) {
+        this.getLevelUpInfo(evolutionChain[i]['evolves_to']);
+      }
     }
     console.log("pokemonEvoData", this.pokemonEvoData);
     console.log("LVL UP TRIGGER", this.lvlUpTrigger);
-  }
-
-  getLevelUpInfoSecondEvo() {
-    if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['trigger'] == 'level-up') {
-      if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['min_level'] !== null) {
-        this.lvlUpTriggerSecondEvo = `Lvl ` + this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['min_level'];
-      } else if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['min_happiness'] !== null) {
-        this.lvlUpTriggerSecondEvo = `LvlUp with Happiness ` + this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['min_happiness'];
-      } else if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['known_move'] !== null) {
-        this.lvlUpTriggerSecondEvo = `LvlUp with Learned Move ` + `"` + this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['known_move'] + `"`;
-      } else if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['time_of_day'] !== null && this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['held_item'] !== null) {
-        this.lvlUpTriggerSecondEvo = `LvlUp during ` + this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['time_of_day'] + `time and item held ` + this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['held_item'];
-      } else if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['location'] !== null) {
-        this.lvlUpTriggerSecondEvo = `LvlUp in Location ` + this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['location'];
-      } else {
-        this.notDeclared = `Noch etwas anderes`;
-      }
-    } else if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['trigger'] == 'use-item') {
-      if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['item'] !== null) {
-        this.lvlUpTriggerSecondEvo = this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['item'];
-      } else {
-        this.notDeclared = `Noch etwas anderes`;
-      }
-    } else if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['trigger'] == 'trade') {
-      if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['held_item'] !== null) {
-        this.lvlUpTriggerSecondEvo = `Trade with Held Item ` + `"` + this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['held_item'] + `"`;
-      } else if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['held_item'] == null) {
-        this.lvlUpTriggerSecondEvo = `Trade`;
-      } else {
-        this.notDeclared = `Noch etwas anderes`;
-      }
-    } else if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['trigger'] == 'other') {
-      if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['name'] === 'annihilape') {
-        this.lvlUpTriggerSecondEvo = `Use 20x Attack "Rage Fist"`;
-      }
-    } else if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`0`]['evolution_details'][`0`]['trigger'] == 'three-critical-hits') {
-      this.lvlUpTriggerSecondEvo = `Give 3x Crit. Hits in one Battle`;
-    }
-    console.log("pokemonEvoData", this.pokemonEvoData);
-  }
-
-  getLevelUpInfoSecondEvoSecondPokemon() {
-    if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['trigger'] == 'level-up') {
-      if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['min_level'] !== null) {
-        this.lvlUpTriggerSecondEvoSecondPokemon = `Lvl ` + this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['min_level'];
-      } else if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['min_happiness'] !== null) {
-        this.lvlUpTriggerSecondEvoSecondPokemon = `LvlUp with Happiness ` + this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['min_happiness'];
-      } else if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['known_move'] !== null) {
-        this.lvlUpTriggerSecondEvoSecondPokemon = `LvlUp with Learned Move ` + `"` + this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['known_move'] + `"`;
-      } else if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['time_of_day'] !== null && this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['held_item'] !== null) {
-        this.lvlUpTriggerSecondEvoSecondPokemon = `LvlUp during ` + this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['time_of_day'] + `time and item held ` + this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['held_item'];
-      } else if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['location'] !== null) {
-        this.lvlUpTriggerSecondEvoSecondPokemon = `LvlUp in Location ` + this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['location'];
-      } else {
-        this.notDeclared = `Noch etwas anderes`;
-      }
-    } else if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['trigger'] == 'use-item') {
-      if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['item'] !== null) {
-        this.lvlUpTriggerSecondEvoSecondPokemon = this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['item'];
-      } else {
-        this.notDeclared = `Noch etwas anderes`;
-      }
-    } else if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['trigger'] == 'trade') {
-      if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['held_item'] !== null) {
-        this.lvlUpTriggerSecondEvoSecondPokemon = `Trade with Held Item ` + `"` + this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['held_item'] + `"`;
-      } else if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['held_item'] == null) {
-        this.lvlUpTriggerSecondEvoSecondPokemon = `Trade`;
-      } else {
-        this.notDeclared = `Noch etwas anderes`;
-      }
-    } else if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['trigger'] == 'other') {
-      if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['name'] === 'annihilape') {
-        this.lvlUpTriggerSecondEvoSecondPokemon = `Use 20x Attack "Rage Fist"`;
-      }
-    } else if (this.pokemonEvoData['evolutions'][`0`][`evolves_to`][`1`]['evolution_details'][`0`]['trigger'] == 'three-critical-hits') {
-      this.lvlUpTriggerSecondEvoSecondPokemon = `Give 3x Crit. Hits in one Battle`;
-    }
-    console.log("pokemonEvoData", this.pokemonEvoData);
   }
 }

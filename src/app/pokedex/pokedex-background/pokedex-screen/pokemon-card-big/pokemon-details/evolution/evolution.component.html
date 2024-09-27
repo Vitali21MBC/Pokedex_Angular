@@ -9,7 +9,6 @@
   [selectedPokemonId]="selectedPokemonId" 
   [lvlUpTrigger]="lvlUpTrigger" 
   [pokemon]="pokemon" 
-  [basePokemonData]="basePokemonData"
   [firstEvoPokemonName]="firstEvoPokemonName"
   data-aos="fade-in">
 </app-one-first-evo>
@@ -18,11 +17,8 @@
 *ngIf="pokemonEvoData?.evolutions?.length === 1 && pokemonEvoData?.evolutions[0]?.evolves_to?.length === 1"
 [selectedPokemonId]="selectedPokemonId" 
 [lvlUpTrigger]="lvlUpTrigger" 
-[lvlUpTriggerSecondEvo]="lvlUpTriggerSecondEvo" 
 [pokemon]="pokemon" 
-[basePokemonData]="basePokemonData"
 [firstEvoPokemonName]="firstEvoPokemonName"
-[secondEvoPokemonName]="secondEvoPokemonName"
 data-aos="fade-in">
 </app-one-first-one-second-evo>
 
@@ -31,7 +27,6 @@ data-aos="fade-in">
   [selectedPokemonId]="selectedPokemonId" 
   [lvlUpTrigger]="lvlUpTrigger" 
   [pokemon]="pokemon" 
-  [basePokemonData]="basePokemonData"
   [firstEvoPokemonName]="firstEvoPokemonName"
     data-aos="fade-in">
 </app-two-first-evos>
@@ -40,13 +35,8 @@ data-aos="fade-in">
 *ngIf="pokemonEvoData?.evolutions?.length === 1 && pokemonEvoData?.evolutions[0]?.evolves_to?.length === 2"
 [selectedPokemonId]="selectedPokemonId" 
 [lvlUpTrigger]="lvlUpTrigger" 
-[lvlUpTriggerSecondEvo]="lvlUpTriggerSecondEvo" 
-[lvlUpTriggerSecondEvoSecondPokemon]="lvlUpTriggerSecondEvoSecondPokemon"
 [pokemon]="pokemon" 
-[basePokemonData]="basePokemonData"
 [firstEvoPokemonName]="firstEvoPokemonName"
-[secondEvoPokemonName]="secondEvoPokemonName"
-[secondEvoSecondPokemonData]="secondEvoSecondPokemonData"
 data-aos="fade-in">
 </app-one-first-two-second-evos>
 
@@ -56,7 +46,6 @@ data-aos="fade-in">
 [selectedPokemonId]="selectedPokemonId" 
 [lvlUpTrigger]="lvlUpTrigger" 
 [pokemon]="pokemon" 
-[basePokemonData]="basePokemonData"
 [firstEvoPokemonName]="firstEvoPokemonName"
 data-aos="fade-in">
 </app-three-first-evos>
@@ -65,12 +54,7 @@ data-aos="fade-in">
 *ngIf="pokemonEvoData?.evolutions?.length === 8 && pokemonEvoData?.evolutions[0]?.evolves_to?.length === 0"
 [selectedPokemonId]="selectedPokemonId" 
 [lvlUpTrigger]="lvlUpTrigger" 
-[lvlUpTriggerFirstEvoSecondPokemon]="lvlUpTriggerFirstEvoSecondPokemon"
-[lvlUpTriggerFirstEvoThirdPokemon]="lvlUpTriggerFirstEvoThirdPokemon"
 [pokemon]="pokemon" 
-[basePokemonData]="basePokemonData"
 [firstEvoPokemonName]="firstEvoPokemonName"
-[firstEvoSecondPokemonName]="firstEvoSecondPokemonName"
-[firstEvoThirdPokemonData]="firstEvoThirdPokemonData"
 data-aos="fade-in">>
 </app-eight-first-evos>

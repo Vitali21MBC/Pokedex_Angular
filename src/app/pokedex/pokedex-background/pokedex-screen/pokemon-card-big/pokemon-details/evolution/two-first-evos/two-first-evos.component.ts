@@ -12,6 +12,5 @@ export class TwoFirstEvosComponent {
   @Input() selectedPokemonId: number | null = null;
   @Input() lvlUpTrigger: string | null = null;
   @Input() pokemon: any;
-  @Input() basePokemonData: any;
   @Input() firstEvoPokemonName: any;
 }

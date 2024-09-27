@@ -11,11 +11,6 @@ import { Component, Input } from '@angular/core';
 export class OneFirstTwoSecondEvosComponent {
   @Input() selectedPokemonId: number | null = null;
   @Input() lvlUpTrigger: string | null = null;
-  @Input() lvlUpTriggerSecondEvo: string | null = null;
-  @Input() lvlUpTriggerSecondEvoSecondPokemon: string | null = null;
   @Input() pokemon: any;
-  @Input() basePokemonData: any;
   @Input() firstEvoPokemonName: any;
-  @Input() secondEvoPokemonName: any;
-  @Input() secondEvoSecondPokemonData: any;
 }

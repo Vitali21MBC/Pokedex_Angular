@@ -158,7 +158,10 @@ export class PokemonDataService {
 
   getPokemonSpecies(): PokemonSpecies | null  {
     return this.pokemonSpecies;
+    
   }
+
+
 
   fetchPokemonEvolutionsData(): Observable<any> {
     if (this.pokemonSpecies && this.pokemonSpecies.evo_url) {
@@ -177,27 +180,6 @@ export class PokemonDataService {
     return this.pokemonEvolutions;
   }
 
-
-
-
-
-  fetchBasePokemonData(pokemonName: string): Observable<any> {
-    const url = this.basicDataURL + pokemonName;
-    return this.http.get(url);
-  }
-
-  addBasePokemon(pokemon: BasePokemon) {
-    console.log("basePokemon GEPUSHT1", pokemon);
-    this.basePokemon = pokemon;  // Speichere das Pokemon als einzelnes Objekt
-    console.log("basePokemon GEPUSHT2",this.basePokemon);
-  }
-
-  getBasePokemon(): BasePokemon | null {
-    return this.basePokemon;
-  }
-
-
-
   fetchPokemonFirstEvolutionsData(pokemonName: string): Observable<any> {
     const url = this.basicDataURL + pokemonName;
     return this.http.get(url);
@@ -210,59 +192,5 @@ export class PokemonDataService {
 
   getPokemonFirstEvolutions(): PokemonFirstEvolutions[] {
     return this.pokemonFirstEvolutions;
-  }
-
-
-
- 
-
-
-
-
-  fetchPokemonSecondEvolutionsSecondPokemonData(pokemonName: string): Observable<any> {
-    const url = this.basicDataURL + pokemonName;
-    return this.http.get(url);
-  }
-
-  addPokemonSecondEvolutionsSecondPokemon(pokemon: PokemonSecondEvolutions) {
-    this.pokemonSecondEvolutions = pokemon;  // Speichere das Pokemon als einzelnes Objekt
-  }
-
-  getPokemonSecondEvolutionsSecondPokemon(): PokemonSecondEvolutions | null {
-    return this.pokemonSecondEvolutions;
-
-  }
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  fetchPokemonSecondEvolutionsData(pokemonName: string): Observable<any> {
-    const url = this.basicDataURL + pokemonName;
-    return this.http.get(url);
-  }
-
-  addPokemonSecondEvolutions(pokemon: PokemonSecondEvolutions) {
-    this.pokemonSecondEvolutions = pokemon;  // Speichere das Pokemon als einzelnes Objekt
-  }
-
-  getPokemonSecondEvolutions(): PokemonSecondEvolutions | null {
-    return this.pokemonSecondEvolutions;
-
   }
 }

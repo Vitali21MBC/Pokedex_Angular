@@ -1,10 +1,9 @@
-<div class="one-first-evolution" *ngIf="firstEvoPokemonName && pokemon && lvlUpTrigger" data-aos="fade-in">
+<div class="one-first-evolution" *ngIf="firstEvoPokemonName.length == 3 && pokemon && lvlUpTrigger" data-aos="fade-in">
     <div class="base-pokemon">
         <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
-        <img class="base-pokemon-image" [src]="basePokemonData.sprite_big" />
-        <span>{{basePokemonData.name}}</span>
+        <img class="base-pokemon-image" [src]="firstEvoPokemonName[0].sprite_big" />
+        <span>{{firstEvoPokemonName[0].name}}</span>
     </div>
-
     <div class="requirement-container">
         <div class="evolution-requirement">
             <img src="./../../../../../../../assets/img/evoArrowRight.svg">
@@ -15,19 +14,16 @@
             <span class="requirement">{{lvlUpTrigger[1]}}</span>
         </div>
     </div>
-
-
     <div class="evo-container">
         <div class="first-evolution">
             <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
-            <img class="first-evolution-image" [src]="this.firstEvoPokemonName[0].sprite_big" />
-            <span>{{this.firstEvoPokemonName[0].name}}</span>
+            <img class="first-evolution-image" [src]="firstEvoPokemonName[1].sprite_big" />
+            <span>{{firstEvoPokemonName[1].name}}</span>
         </div>
         <div class="first-evolution">
             <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
-            <img class="first-evolution-image" [src]="this.firstEvoPokemonName[1].sprite_big" />
-            <span>{{this.firstEvoPokemonName[1].name}}</span>
+            <img class="first-evolution-image" [src]="firstEvoPokemonName[2].sprite_big" />
+            <span>{{firstEvoPokemonName[2].name}}</span>
         </div>
     </div>
-
 </div>
