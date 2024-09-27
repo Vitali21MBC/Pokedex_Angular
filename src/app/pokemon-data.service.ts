@@ -180,17 +180,17 @@ export class PokemonDataService {
     return this.pokemonEvolutions;
   }
 
-  fetchPokemonFirstEvolutionsData(pokemonName: string): Observable<any> {
+  fetchEachPokemon(pokemonName: string): Observable<any> {
     const url = this.basicDataURL + pokemonName;
     return this.http.get(url);
   }
 
-  addPokemonFirstEvolutions(pokemon: PokemonFirstEvolutions) {
+  addEachPokemon(pokemon: PokemonFirstEvolutions) {
     this.pokemonFirstEvolutions.push(pokemon);  // Speichere das Pokemon als einzelnes Objekt
     console.log("???????????????",this.pokemonFirstEvolutions);
   }
 
-  getPokemonFirstEvolutions(): PokemonFirstEvolutions[] {
+  getEachPokemon(): PokemonFirstEvolutions[] {
     return this.pokemonFirstEvolutions;
   }
 }

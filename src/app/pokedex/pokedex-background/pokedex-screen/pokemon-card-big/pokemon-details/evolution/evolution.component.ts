@@ -28,28 +28,11 @@ import { EightFirstEvosComponent } from "./eight-first-evos/eight-first-evos.com
 export class EvolutionComponent implements OnInit {
   @Input() selectedPokemonId: number | null = null;
   pokemon: any = {};
-  pokemonEvo: any;
-  pokemonFirstEvo: any;
   basicDataURL = this.pokemonDataService.basicDataURL;
-  firstEvoPokemonName: any = {};
-  basePokemonData: any = {};
-  firstEvoSecondPokemonName: any = {};
-  firstEvoThirdPokemonData: any = {};
-  secondEvoPokemonName: any = {};
-  secondEvoSecondPokemonData: any = {};
-
+  pokemonDetailsOfEvoChain: any = {};
   pokemonEvoData: any;
-  basePokemonName: any;
-
-  firstEvolutionNames: string[] = [];
-
-  secondEvolutionName: any;
-  secondEvolutionSecondName: any;
+  pokemonNamesOfEvoChain: string[] = [];
   lvlUpTrigger: any = [];
-  lvlUpTriggerFirstEvoSecondPokemon: string | null = null;
-  lvlUpTriggerFirstEvoThirdPokemon: string | null = null;
-  lvlUpTriggerSecondEvo: string | null = null;
-  lvlUpTriggerSecondEvoSecondPokemon: string | null = null;
   notDeclared: any;
 
   constructor(private pokemonDataService: PokemonDataService) { }
@@ -57,9 +40,9 @@ export class EvolutionComponent implements OnInit {
   async ngOnInit() {
     await this.fetchPokemonEvolutionsData();
     this.loadPokemonEvolutionDataFromArray();
-    if (this.firstEvolutionNames.length > 0) {
-      await this.fetchAndProcessPokemonFirstEvolution();
-      this.loadPokemonFirstEvolutionDetails();
+    if (this.pokemonNamesOfEvoChain.length > 0) {
+      await this.fetchAndProcessEachPokemon();
+      this.loadEachPokemon();
       this.getLevelUpInfo(this.pokemonEvoData['evolutions']);
     }
   }
@@ -118,16 +101,16 @@ export class EvolutionComponent implements OnInit {
 
   loadPokemonEvolutionDataFromArray() {
     this.pokemonEvoData = this.pokemonDataService.getPokemonEvolutions();
-    this.firstEvolutionNames = [];
-    this.firstEvolutionNames.push(this.pokemonEvoData.base_pokemon);
+    this.pokemonNamesOfEvoChain = [];
+    this.pokemonNamesOfEvoChain.push(this.pokemonEvoData.base_pokemon);
     this.collectEvolutionNames(this.pokemonEvoData.evolutions);
-    console.log("All Evolution Names:", this.firstEvolutionNames);
+    console.log("All Evolution Names:", this.pokemonNamesOfEvoChain);
   }
 
   collectEvolutionNames(evolutionChain: any[]) {
     for (let i = 0; i < evolutionChain.length; i++) {
       const evolutionName = evolutionChain[i].name;
-      this.firstEvolutionNames.push(evolutionName);
+      this.pokemonNamesOfEvoChain.push(evolutionName);
 
       if (evolutionChain[i].evolves_to && evolutionChain[i].evolves_to.length > 0) {
         this.collectEvolutionNames(evolutionChain[i].evolves_to);
@@ -140,13 +123,13 @@ export class EvolutionComponent implements OnInit {
   // Das wäre theoretisch bereits möglich über die Grunddaten der in der Übersicht bereits geladenen Pokemon.
   // Jedoch haben manche Pokemon Entwicklungen, die aus späteren Generationen erst dazugekommen sind. Diese könnten dann noch nicht vorhanden sein im Grunddaten
   // Array, wenn nicht genügend Pokemon vorgeladen worden sind.
-  async fetchAndProcessPokemonFirstEvolution() {
+  async fetchAndProcessEachPokemon() {
     this.pokemonDataService.pokemonFirstEvolutions = [];
-    for (let i = 0; i < this.firstEvolutionNames.length; i++) {
+    for (let i = 0; i < this.pokemonNamesOfEvoChain.length; i++) {
       try {
-        const firstEvoPokemonName = this.firstEvolutionNames[i];
-        const data = await this.pokemonDataService.fetchPokemonFirstEvolutionsData(firstEvoPokemonName).toPromise();
-        this.pushPokemonFirstEvolutionInfoInArray(data);
+        const firstEvoPokemonName = this.pokemonNamesOfEvoChain[i];
+        const data = await this.pokemonDataService.fetchEachPokemon(firstEvoPokemonName).toPromise();
+        this.pushEachPokemonInArray(data);
         console.log("data", data);
       } catch (error) {
         console.error('Fehler beim Laden der Pokemon-Spezies-Daten:', error);
@@ -155,18 +138,18 @@ export class EvolutionComponent implements OnInit {
   }
 
   // Diese Funktion speichert die benötigten Daten der Entwicklung des Base Pokemon ab, damit diese abgerufen werden können.
-  pushPokemonFirstEvolutionInfoInArray(eachPokemon: any) {
+  pushEachPokemonInArray(eachPokemon: any) {
     const pokemonFirstEvoBaseData = {
       id: eachPokemon['id'],
       name: eachPokemon['name'],
       sprite_big: eachPokemon['sprites']['other']['official-artwork']['front_default'],
     };
-    this.pokemonDataService.addPokemonFirstEvolutions(pokemonFirstEvoBaseData);
+    this.pokemonDataService.addEachPokemon(pokemonFirstEvoBaseData);
   }
 
-  loadPokemonFirstEvolutionDetails() {
-    this.firstEvoPokemonName = this.pokemonDataService.getPokemonFirstEvolutions();
-    console.log("this.firstEvoPokemonName", this.firstEvoPokemonName);
+  loadEachPokemon() {
+    this.pokemonDetailsOfEvoChain = this.pokemonDataService.getEachPokemon();
+    console.log("this.pokemonDetailsOfEvoChain", this.pokemonDetailsOfEvoChain);
   }
 
   getLevelUpInfo(evolutionChain: any[]) {
