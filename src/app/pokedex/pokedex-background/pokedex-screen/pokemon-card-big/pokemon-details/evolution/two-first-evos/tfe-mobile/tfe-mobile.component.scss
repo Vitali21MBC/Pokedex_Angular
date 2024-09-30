@@ -1,0 +1,106 @@
+.one-first-evolution {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+    .base-pokemon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+
+        .pokemon-background {
+            height: 140px;
+            width: auto;
+            filter: opacity(0.05) invert(1);
+            position: absolute;
+            left: -35px;
+            bottom: -35px;
+            z-index: 2;
+        }
+
+        .base-pokemon-image {
+            height: 70px;
+            z-index: 3;
+        }
+
+        span {
+            position: absolute;
+            bottom: -45px;
+            text-transform: capitalize;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    }
+
+    .requirement-container {
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+
+        .evolution-requirement {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding-top: 16px;
+            width: 100px;
+
+            img {
+                width: 40px;
+                transform: rotate(90deg);
+            }
+
+            .requirement {
+                position: absolute;
+                bottom: -18px;
+                text-transform: capitalize;
+                font-size: 16px;
+                font-weight: bold;
+                text-align: center;
+                width: 150px;
+                height: 24px;
+            }
+        }
+    }
+
+    .evo-container {
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+
+        .first-evolution {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+
+            .pokemon-background {
+                height: 140px;
+                width: auto;
+                filter: opacity(0.05) invert(1);
+                position: absolute;
+                left: -20px;
+                bottom: -15px;
+                z-index: 2;
+            }
+
+            .first-evolution-image {
+                height: 100px;
+                z-index: 3;
+            }
+
+            span {
+                position: absolute;
+                bottom: -24px;
+                text-transform: capitalize;
+                font-size: 20px;
+                font-weight: bold;
+            }
+        }
+    }
+}

@@ -1,16 +1,6 @@
-<div class="one-first-evolution" *ngIf="pokemonDetailsOfEvoChain[0] && pokemon && lvlUpTrigger" data-aos="fade-in">
-    <div class="base-pokemon">
-        <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
-        <img class="base-pokemon-image" [src]="pokemonDetailsOfEvoChain[0].sprite_big" />
-        <span>{{pokemonDetailsOfEvoChain[0].name}}</span>
-    </div>
-    <div class="evolution-requirement">
-        <img src="./../../../../../../../assets/img/evoArrowRight.svg">
-        <span class="requirement">{{lvlUpTrigger[0]}}</span>
-    </div>
-    <div class="first-evolution">
-        <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
-        <img class="first-evolution-image" [src]="pokemonDetailsOfEvoChain[1].sprite_big" />
-        <span>{{pokemonDetailsOfEvoChain[1].name}}</span>
-    </div>
-</div>
+<app-ofe-desktop *ngIf="!isMobile" [selectedPokemonId]="selectedPokemonId" [lvlUpTrigger]="lvlUpTrigger"
+    [pokemon]="pokemon" [pokemonDetailsOfEvoChain]="pokemonDetailsOfEvoChain">
+</app-ofe-desktop>
+<app-ofe-mobile *ngIf="isMobile" [selectedPokemonId]="selectedPokemonId" [lvlUpTrigger]="lvlUpTrigger"
+    [pokemon]="pokemon" [pokemonDetailsOfEvoChain]="pokemonDetailsOfEvoChain">
+</app-ofe-mobile>

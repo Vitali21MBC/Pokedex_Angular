@@ -1,4 +1,5 @@
-<div>
-    <app-pokemon-illustration [selectedPokemonId]="selectedPokemonId"></app-pokemon-illustration>
+<div [ngClass]="isMobile ? 'mobile-view' : 'desktop-view'">
+    <app-pokemon-illustration *ngIf="!isMobile" [selectedPokemonId]="selectedPokemonId"></app-pokemon-illustration>
+    <app-pokemon-illustration-mobile *ngIf="isMobile" [selectedPokemonId]="selectedPokemonId"></app-pokemon-illustration-mobile>
     <app-pokemon-details [selectedPokemonId]="selectedPokemonId"></app-pokemon-details>
 </div>

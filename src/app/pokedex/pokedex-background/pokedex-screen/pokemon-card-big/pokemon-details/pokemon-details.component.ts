@@ -4,11 +4,13 @@ import { AboutComponent } from './about/about.component';
 import { StatsComponent } from './stats/stats.component';
 import { EvolutionComponent } from './evolution/evolution.component';
 import { MovesComponent } from './moves/moves.component';
+import { ViewportService } from '../../../../../viewport.service';
+import { AboutMobileComponent } from './about-mobile/about-mobile.component';
 
 @Component({
   selector: 'app-pokemon-details',
   standalone: true,
-  imports: [CommonModule, AboutComponent, StatsComponent, EvolutionComponent, MovesComponent],
+  imports: [CommonModule, AboutComponent, AboutMobileComponent, StatsComponent, EvolutionComponent, MovesComponent],
   templateUrl: './pokemon-details.component.html',
   styleUrl: './pokemon-details.component.scss'
 })
@@ -17,10 +19,16 @@ export class PokemonDetailsComponent implements OnInit{
   activeMenu: number = 0; // Track which menu is active
   activePosition: number = 0; // Position des Unterstrichs
   activeWidth: number = 0; // Breite des Unterstrichs
+  isMobile: boolean = false;
 
   @ViewChild('menu', { static: true }) menu!: ElementRef; // Referenz auf das Menü
 
+  constructor(private viewportService: ViewportService) {}
+
   ngOnInit() {
+    this.viewportService.isMobile$.subscribe((mobile) => {
+      this.isMobile = mobile;
+    });
     // Berechne die Startposition für das erste Menüelement
     setTimeout(() => {
       this.setActiveMenu(0); // Standardmäßiger Menüpunkt (z.B. der erste)

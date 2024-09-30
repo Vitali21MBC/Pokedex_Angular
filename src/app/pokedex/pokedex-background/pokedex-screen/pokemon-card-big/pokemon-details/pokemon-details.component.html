@@ -1,5 +1,5 @@
-<div class="pokemon-details-wrapper">
-    <div #menu class="details-nav-bar">
+<div [ngClass]="isMobile ? 'pokemon-details-wrapper column-rev' : 'pokemon-details-wrapper'">
+    <div #menu [ngClass]="isMobile ? 'details-nav-bar column-rev' : 'details-nav-bar'">
         <div class="nav-bar-menu-list">
             <div (click)="setActiveMenu(0)" class="nav-bar-menu-item">
                 <img src="./../../../../../../assets/img/about.png">
@@ -20,7 +20,13 @@
         </div>
     </div>
     <div class="pokemon-details">
-        <app-about *ngIf="activeMenu === 0" [selectedPokemonId]="selectedPokemonId"></app-about>
+        <app-about *ngIf="activeMenu === 0 && !isMobile" [selectedPokemonId]="selectedPokemonId"></app-about>
+        <app-about-mobile *ngIf="activeMenu === 0 && isMobile" [selectedPokemonId]="selectedPokemonId"></app-about-mobile>
+       
+
+
+
+
         <app-stats *ngIf="activeMenu === 1" [selectedPokemonId]="selectedPokemonId"></app-stats>
         <app-evolution *ngIf="activeMenu === 2" [selectedPokemonId]="selectedPokemonId"></app-evolution>
         <app-moves *ngIf="activeMenu === 3" [selectedPokemonId]="selectedPokemonId"></app-moves>

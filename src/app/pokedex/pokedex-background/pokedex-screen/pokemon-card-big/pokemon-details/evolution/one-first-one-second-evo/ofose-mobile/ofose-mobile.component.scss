@@ -1,0 +1,153 @@
+.one-first-evolution {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+    .base-pokemon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+
+        .pokemon-background {
+            height: 140px;
+            width: auto;
+            filter: opacity(0.05) invert(1);
+            position: absolute;
+            left: -35px;
+            bottom: -35px;
+            z-index: 2;
+        }
+
+        .base-pokemon-image {
+            height: 70px;
+            z-index: 3;
+        }
+
+        span {
+            position: absolute;
+            bottom: -45px;
+            text-transform: capitalize;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    }
+
+    .evolution-requirement {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        position: relative;
+        padding-top: 20px;
+
+        img {
+            width: 40px;
+            transform: rotate(110deg);
+        }
+
+        .second-evo-arrow {
+            width: 40px;
+            transform: rotate(0deg);
+        }
+
+        .requirement {
+            position: absolute;
+            bottom: -18px;
+            left: -60px;
+            text-transform: capitalize;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            width: 150px;
+            height: 24px;
+        }
+    }
+
+    .first-and-second-evo-container {
+        display: flex;
+        width: 100%;
+        justify-content: space-evenly;
+
+        .first-evolution {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 100px;
+
+            .pokemon-background {
+                height: 120px;
+                width: auto;
+                filter: opacity(0.05) invert(1);
+                position: absolute;
+                left: -10px;
+                bottom: -5px;
+                z-index: 2;
+            }
+
+            .first-evolution-image {
+                height: 80px;
+                z-index: 3;
+            }
+
+            span {
+                position: absolute;
+                bottom: -8px;
+                text-transform: capitalize;
+                font-size: 20px;
+                font-weight: bold;
+            }
+        }
+
+        .second-evolution {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 100px;
+
+            .pokemon-background {
+                height: 120px;
+                width: auto;
+                filter: opacity(0.05) invert(1);
+                position: absolute;
+                left: -10px;
+                bottom: -5px;
+                z-index: 2;
+            }
+
+            .second-evolution-image {
+                height: 110px;
+                z-index: 3;
+            }
+
+            span {
+                position: absolute;
+                bottom: -8px;
+                text-transform: capitalize;
+                font-size: 20px;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.padding-top {
+    padding-top: 0px !important;
+}
+
+.bottom {
+    bottom: 20px !important;
+}
+
+.left {
+    left: -55px !important;
+}
+
+.width-50 {
+    width: 50%;
+}
