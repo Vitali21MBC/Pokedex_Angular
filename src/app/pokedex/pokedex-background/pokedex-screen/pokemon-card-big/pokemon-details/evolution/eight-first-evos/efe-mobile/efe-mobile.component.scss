@@ -1,0 +1,108 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.base-pokemon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 33%;
+    width: 100%;
+    flex-direction: column;
+    position: relative;
+}
+
+.pokemon-evos-container {
+    display: flex;
+    align-items: center;
+    height: 67%;
+    width: 100%;
+    overflow-y: auto;
+
+    .evo-and-req-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        .arrow-with-req {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            height: 35%;
+
+            .requirement-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .requirement {
+                    text-transform: capitalize;
+                    font-size: 12px;
+                    font-weight: bold;
+                    text-align: center;
+                }
+            }
+
+            .arrow-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .arrow-right {
+                    width: 40px;
+                    transform: rotate(90deg);
+                }
+            }
+
+        }
+
+
+    }
+}
+
+.evo-pokemon-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 65%;
+    position: relative;
+}
+
+.pokemon-background {
+    position: absolute;
+    height: 127px;
+    left: -3px;
+    bottom: 16px;
+    filter: opacity(0.05) invert(1);
+    z-index: 2;
+}
+
+.first-evolution-image {
+    height: 120px;
+    z-index: 2;
+}
+
+span {
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.base-pokemon-background{
+    position: absolute;
+    height: 120px;
+    filter: opacity(0.05) invert(1);
+    z-index: 2;
+}
+
+.base-pokemon-image{
+    height: 110px;
+    z-index: 2;
+}

@@ -1,0 +1,188 @@
+.one-first-evolution {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+    .base-pokemon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        height: 110px;
+        width: 110px;
+
+        .pokemon-background {
+            height: 120px;
+            width: auto;
+            filter: opacity(0.05) invert(1);
+            position: absolute;
+            left: -5px;
+            bottom: -5px;
+            z-index: 2;
+        }
+
+        .base-pokemon-image {
+            height: 70px;
+            z-index: 3;
+        }
+
+        span {
+            position: absolute;
+            bottom: -12px;
+            text-transform: capitalize;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    }
+
+    .evolution-requirement {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        width: 0px;
+
+        .arrow-down {
+            width: 40px;
+            transform: rotate(90deg);
+        }
+
+        .arrow-right {
+            width: 40px;
+            transform: rotate(0deg);
+        }
+
+        .arrow-down-left {
+            width: 40px;
+            transform: rotate(135deg);
+        }
+
+        .requirement {
+            position: absolute;
+            bottom: -16px;
+            left: -75px;
+            text-transform: capitalize;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            width: 150px;
+            height: 24px;
+        }
+
+        .requirement-first-second-evo{
+            position: absolute;
+            bottom: -16px;
+            left: -80px;
+            text-transform: capitalize;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            width: 120px;
+            height: 24px;
+        }
+
+        .requirement-second-second-evo{
+            position: absolute;
+            bottom: -16px;
+            left: -58px;
+            text-transform: capitalize;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            width: 120px;
+            height: 24px;
+        }
+    }
+
+    .first-evolution {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        height: 110px;
+        width: 110px;
+
+        .pokemon-background {
+            height: 120px;
+            width: auto;
+            filter: opacity(0.05) invert(1);
+            position: absolute;
+            left: -5px;
+            bottom: -5px;
+            z-index: 2;
+        }
+
+        .first-evolution-image {
+            height: 80px;
+            z-index: 3;
+        }
+
+        span {
+            position: absolute;
+            bottom: -12px;
+            text-transform: capitalize;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    }
+
+    .second-evolution {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        height: 110px;
+        width: 110px;
+
+        .pokemon-background {
+            height: 120px;
+            width: auto;
+            filter: opacity(0.05) invert(1);
+            position: absolute;
+            left: -5px;
+            bottom: -5px;
+            z-index: 2;
+        }
+
+        .second-evolution-image {
+            height: 110px;
+            z-index: 3;
+        }
+
+        span {
+            position: absolute;
+            bottom: -12px;
+            text-transform: capitalize;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    }
+}
+
+.base-and-first-evo-container-mobile {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.evo-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 24px;
+}
+
+.requirement-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 20px;
+    padding-right: 10px;
+}

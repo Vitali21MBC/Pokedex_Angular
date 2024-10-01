@@ -30,10 +30,12 @@
 
         span {
             position: absolute;
-            bottom: -45px;
+            bottom: -40px;
             text-transform: capitalize;
-            font-size: 20px;
+            font-size: 16px;
             font-weight: bold;
+            min-width: 100px;
+            text-align: center;
         }
     }
 
@@ -59,7 +61,7 @@
             bottom: -18px;
             left: -60px;
             text-transform: capitalize;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
             text-align: center;
             width: 150px;
@@ -96,9 +98,9 @@
 
             span {
                 position: absolute;
-                bottom: -8px;
+                bottom: -12px;
                 text-transform: capitalize;
-                font-size: 20px;
+                font-size: 16px;
                 font-weight: bold;
             }
         }
@@ -127,9 +129,9 @@
 
             span {
                 position: absolute;
-                bottom: -8px;
+                bottom: -12px;
                 text-transform: capitalize;
-                font-size: 20px;
+                font-size: 16px;
                 font-weight: bold;
             }
         }

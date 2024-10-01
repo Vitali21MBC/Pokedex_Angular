@@ -1,0 +1,30 @@
+<div class="main-container" *ngIf="pokemonDetailsOfEvoChain.length == 9 && pokemon && lvlUpTrigger">
+
+    <div class="base-pokemon-container">
+            <img class="base-pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
+            <img class="base-pokemon-image" [src]="pokemonDetailsOfEvoChain[0]?.sprite_big" />
+            <span>{{pokemonDetailsOfEvoChain[0]?.name}}</span>
+    </div>
+
+    <div class="pokemon-evos-container">
+
+        <div class="evo-and-req-container" *ngFor="let i of indices">
+            <div class="arrow-with-req">
+                <div class="requirement-container">
+                    <span class="requirement">{{lvlUpTrigger[i-1]}}</span>
+                </div>
+                <div class="arrow-container">
+                    <img class="arrow-right" src="./../../../../../../../assets/img/evoArrowRight.svg">
+                </div>
+            </div>
+        
+            <div class="evo-pokemon-container">
+                <img class="pokemon-background" src="./../../../../../../../assets/img/pokeball_logo_white.svg">
+                <img class="first-evolution-image" [src]="pokemonDetailsOfEvoChain[i]?.sprite_big" />
+                <span>{{pokemonDetailsOfEvoChain[i]?.name}}</span>
+            </div>
+        </div>
+
+    </div>
+
+</div>
