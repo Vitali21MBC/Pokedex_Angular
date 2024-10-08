@@ -75,6 +75,15 @@ export class PokedexScreenComponent implements OnInit {
     const abilities = eachPokemon['abilities']
       .map((abilityData: any) => abilityData['ability']['name'].replace('-', ' '));
 
+    const moves = eachPokemon['moves'].map((moveItem: any) => ({
+      name: moveItem.move.name,
+      version_group_details: moveItem.version_group_details.map((detail: any) => ({
+        level_learned_at: detail.level_learned_at,
+        move_learn_method_name: detail.move_learn_method.name,
+        version_group_name: detail.version_group.name
+      }))
+    }));
+
     const pokemonBasicData = {
       id: eachPokemon['id'],
       name: eachPokemon['name'],
@@ -85,18 +94,26 @@ export class PokedexScreenComponent implements OnInit {
       sprite: eachPokemon['sprites']['front_default'],
       sprite_big: eachPokemon['sprites']['other']['official-artwork']['front_default'],
       sprite_shiny: eachPokemon['sprites']['other']['official-artwork']['front_shiny'],
-      abilities: abilities // Array der Fähigkeiten
+      abilities: abilities, // Array der Fähigkeiten
+      moves: moves,
     };
-    if (pokemonBasicData.abilities.length > 2) {
-      console.log("Neue Pokemon Basic Data", pokemonBasicData.abilities.length);
-      console.log("Neue Pokemon Basic Data", pokemonBasicData);
-    }
+    console.log("Neue Pokemon Basic Data", pokemonBasicData.abilities.length);
+    console.log("Neue Pokemon Basic Data", pokemonBasicData);
     this.pokemonDataService.addPokemon(pokemonBasicData);
   }
 
   pushOneTypeInArray(eachPokemon: any) {
     const abilities = eachPokemon['abilities']
       .map((abilityData: any) => abilityData['ability']['name'].replace('-', ' '));
+
+      const moves = eachPokemon['moves'].map((moveItem: any) => ({
+        name: moveItem.move.name,
+        version_group_details: moveItem.version_group_details.map((detail: any) => ({
+          level_learned_at: detail.level_learned_at,
+          move_learn_method_name: detail.move_learn_method.name,
+          version_group_name: detail.version_group.name
+        }))
+      }));
 
     const pokemonBasicData = {
       id: eachPokemon['id'],
@@ -107,12 +124,11 @@ export class PokedexScreenComponent implements OnInit {
       sprite: eachPokemon['sprites']['front_default'],
       sprite_big: eachPokemon['sprites']['other']['official-artwork']['front_default'],
       sprite_shiny: eachPokemon['sprites']['other']['official-artwork']['front_shiny'],
-      abilities: abilities // Array der Fähigkeiten
+      abilities: abilities, // Array der Fähigkeiten
+      moves: moves,
     };
-    if (pokemonBasicData.abilities.length > 2) {
-      console.log("Neue Pokemon Basic Data", pokemonBasicData.abilities.length);
-      console.log("Neue Pokemon Basic Data", pokemonBasicData);
-    }
+    console.log("Neue Pokemon Basic Data", pokemonBasicData.abilities.length);
+    console.log("Neue Pokemon Basic Data", pokemonBasicData);
     this.pokemonDataService.addPokemon(pokemonBasicData);
   }
 
