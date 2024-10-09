@@ -236,4 +236,9 @@ export class PokemonDataService {
   getPokemonMovesData(): MovesData[] {
     return this.pokemonMovesData;
   }
+
+  clearPokemonMovesData() {
+    this.pokemonMovesData = [];
+  }
+  
 }

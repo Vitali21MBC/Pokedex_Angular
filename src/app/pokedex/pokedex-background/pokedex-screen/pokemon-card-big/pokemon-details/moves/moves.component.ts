@@ -21,11 +21,42 @@ export class MovesComponent implements OnInit {
   movesFilteredByLearnMethod: any;
   movesFilteredByGameVersion: any;
 
+  excludedVersions: string[] = [];
+  releaseOrder: string[] = [];
+  uniqueSortedGameVersions: string[] = [];
+
+  isLoading: boolean = false;
+
   activeLearnTypeNonFormatted: any;
   activeGameVerisonNonFormatted: any;
 
   hoveredLearnType: string | null = null;
   hoveredGameVersion: string | null = null;  // Variable für den Hover-Zustand
+
+  versionAbbreviations: { [key: string]: string } = {
+    'red-blue': 'RB',
+    'yellow': 'Y',
+    'gold-silver': 'GS',
+    'crystal': 'C',
+    'ruby-sapphire': 'RS',
+    'emerald': 'E',
+    'firered-leafgreen': 'FR/LG',
+    'diamond-pearl': 'DP',
+    'platinum': 'P',
+    'heartgold-soulsilver': 'HG/SS',
+    'black-white': 'BW',
+    'black-2-white-2': 'B2/W2',
+    'x-y': 'XY',
+    'omega-ruby-alpha-sapphire': 'OR/AS',
+    'sun-moon': 'SM',
+    'ultra-sun-ultra-moon': 'US/UM',
+    'sword-shield': 'Sw/Sh',
+    'brilliant-diamond-and-shining-pearl': 'BD/SP',
+    'scarlet-violet': 'SV',
+    'colosseum': 'Col',
+    'xd': 'XD',
+    'lets-go-pikachu-lets-go-eevee': 'LGPE'
+  };
 
   constructor(private pokemonDataService: PokemonDataService) { }
 
@@ -33,13 +64,16 @@ export class MovesComponent implements OnInit {
     this.moveLearnMethods = this.pokemonDataService.moveLearnMethod;
     this.pokemonGameVersions = this.pokemonDataService.pokemonGameVersions;
     if (this.selectedPokemonId) {
+      this.pokemonDataService.clearPokemonMovesData();
       this.loadPokemonDetails();
       this.setActiveLearnType("Level Up");
-      this.setActiveGameVersion("RB");
       await this.fetchAndProcessMovesData();
       this.loadPokemonMoves();
       this.filterMovesByLearnType();
-
+      this.loadPokemonGameVersions()
+      if (this.uniqueSortedGameVersions.length > 0) {
+        this.setActiveGameVersion(this.uniqueSortedGameVersions[0]);
+      }
     }
   }
 
@@ -101,83 +135,57 @@ export class MovesComponent implements OnInit {
     this.activeLearnType = learnType;
     console.log(this.activeLearnType);
     this.filterMovesByLearnType();
-
   }
 
   filterMovesByLearnType() {
-    this.movesFilteredByLearnMethod = "";
-    this.movesFilteredByLearnMethod = this.pokemonMoves.filter((move: MovesData) => move.learnMethod === this.activeLearnType);
+    // Überprüfen, ob es überhaupt Moves gibt, die zum ausgewählten Learn Type passen.
+    const movesByLearnType = this.pokemonMoves.filter((move: MovesData) => move.learnMethod === this.activeLearnType);
+
+    // Setze die gefilterte Liste entweder auf die gefilterten Moves oder auf eine leere Liste.
+    this.movesFilteredByLearnMethod = movesByLearnType.length > 0 ? movesByLearnType : [];
+
     console.log("Learn Type GEFILTERTE ATTACKEN", this.movesFilteredByLearnMethod);
-    if (this.activeGameVersion) {
-      this.filterMovesByGameVersion()
+
+    // Wenn keine Moves vorhanden sind, setze auch die game version Filter zurück.
+    if (this.movesFilteredByLearnMethod.length === 0) {
+      this.movesFilteredByGameVersion = [];
+    } else if (this.activeGameVersion) {
+      this.filterMovesByGameVersion();
     }
   }
 
   setActiveGameVersion(gameVersion: string) {
+    console.log("setActiveGameVersion gameVersion", gameVersion);
     this.activeGameVerisonNonFormatted = gameVersion;
-
-    if (gameVersion === "RB") {
-      gameVersion = "red-blue"
-    } else if (gameVersion === "Y") {
-      gameVersion = "yellow"
-    } else if (gameVersion === "GS") {
-      gameVersion = "gold-silver"
-    } else if (gameVersion === "C") {
-      gameVersion = "crystal"
-    } else if (gameVersion === "RS") {
-      gameVersion = "ruby-sapphire"
-    } else if (gameVersion === "E") {
-      gameVersion = "emerald"
-    } else if (gameVersion === "FRLG") {
-      gameVersion = "firered-leafgreen"
-    } else if (gameVersion === "DP") {
-      gameVersion = "diamond-pearl"
-    } else if (gameVersion === "P") {
-      gameVersion = "platinum"
-    } else if (gameVersion === "HGSS") {
-      gameVersion = "heartgold-soulsilver"
-    } else if (gameVersion === "BW") {
-      gameVersion = "black-white"
-    } else if (gameVersion === "B2W2") {
-      gameVersion = "black-2-white-2"
-    } else if (gameVersion === "XY") {
-      gameVersion = "x-y"
-    } else if (gameVersion === "ORAS") {
-      gameVersion = "omega-ruby-alpha-sapphire"
-    } else if (gameVersion === "SM") {
-      gameVersion = "sun-moon"
-    } else if (gameVersion === "USUM") {
-      gameVersion = "ultra-sun-ultra-moon"
-    } else if (gameVersion === "LGPLGE") {
-      gameVersion = "lets-go-pikachu-lets-go-eevee"
-    } else if (gameVersion === "SS") {
-      gameVersion = "sword-shield"
-    } else if (gameVersion === "BDSP") {
-      gameVersion = "brilliant-diamond-and-shining-pearl"
-    } else if (gameVersion === "SV") {
-      gameVersion = "scarlet-violet"
-    }
+    console.log("setActiveGameVersion this.activeGameVerisonNonFormatted", this.activeGameVerisonNonFormatted);
 
     this.activeGameVersion = gameVersion;
     console.log(this.activeGameVersion);
+
     this.filterMovesByGameVersion();
   }
 
   filterMovesByGameVersion() {
-    this.movesFilteredByGameVersion = "";
-    this.movesFilteredByGameVersion = this.movesFilteredByLearnMethod.filter((move: MovesData) => move.gameGeneration === this.activeGameVersion);
-    this.movesFilteredByGameVersion.sort((a: MovesData, b: MovesData) => a.levelLearnedAt - b.levelLearnedAt);
-    console.log("Kombo", this.activeLearnType, this.activeGameVersion);
-    console.log("VERSIONEN GEFILTERTE ATTACKEN", this.movesFilteredByGameVersion);
+    if (this.movesFilteredByLearnMethod.length > 0) {
+      // Filtere nach Game Version, falls Moves für den Learn Type vorhanden sind.
+      const movesByGameVersion = this.movesFilteredByLearnMethod.filter((move: MovesData) => move.gameGeneration === this.activeGameVersion);
+      this.movesFilteredByGameVersion = movesByGameVersion.length > 0 ? movesByGameVersion : [];
+
+      // Sortiere die gefilterten Moves nach Level.
+      this.movesFilteredByGameVersion.sort((a: MovesData, b: MovesData) => a.levelLearnedAt - b.levelLearnedAt);
+      console.log("VERSIONEN GEFILTERTE ATTACKEN", this.movesFilteredByGameVersion);
+    } else {
+      // Falls keine Moves für den Learn Type gefunden wurden, setze die Liste zurück.
+      this.movesFilteredByGameVersion = [];
+    }
   }
 
   async fetchAndProcessMovesData() {
     console.log("Fetch Move geht los");
+    this.isLoading = true;
     for (let i = 0; i < this.pokemon.moves.length; i++) {
       const move = this.pokemon.moves[i].name;
       console.log("Jeder Move", move);
-
-
 
       try {
         const data = await this.pokemonDataService.fetchPokemonMovesData(move).toPromise();
@@ -187,6 +195,7 @@ export class MovesComponent implements OnInit {
         console.error('Fehler beim Laden der Pokemon-Moves-Daten:', error);
       }
     }
+    this.isLoading = false;
   }
 
   pushPokemonMovesDataInArray(moveData: any, i: number) {
@@ -218,6 +227,64 @@ export class MovesComponent implements OnInit {
   loadPokemonMoves() {
     this.pokemonMoves = this.pokemonDataService.getPokemonMovesData();
     console.log("this.pokemonMoves", this.pokemonMoves);
+  }
+
+  loadPokemonGameVersions() {
+    this.excludeNonMainGames();
+    this.getGameReleaseOrder();
+    this.sortGameVersionAccordingRelease();
+  }
+
+  excludeNonMainGames() {
+    this.excludedVersions = ['xd', 'colosseum', 'lets-go-pikachu-lets-go-eevee'];
+  }
+
+  getGameReleaseOrder() {
+    this.releaseOrder = [
+      'red-blue', 'yellow', 'gold-silver', 'crystal', 'ruby-sapphire',
+      'emerald', 'firered-leafgreen', 'diamond-pearl', 'platinum',
+      'heartgold-soulsilver', 'black-white', 'black-2-white-2', 'x-y',
+      'omega-ruby-alpha-sapphire', 'sun-moon', 'ultra-sun-ultra-moon',
+      'sword-shield', 'brilliant-diamond-and-shining-pearl', 'scarlet-violet'
+    ];
+  }
+
+  sortGameVersionAccordingRelease() {
+    this.uniqueSortedGameVersions = [
+      ...new Set(
+        this.pokemonMoves
+          .filter(move => !this.excludedVersions.includes(move.gameGeneration))
+          .map(move => move.gameGeneration)
+      ),
+    ].sort((a, b) => this.releaseOrder.indexOf(a) - this.releaseOrder.indexOf(b)); // Sortieren basierend auf der Reihenfolge
+    console.log(this.uniqueSortedGameVersions);
+  }
+
+  getFullVersionName(version: string): string {
+    const versionNames: { [key: string]: string } = {
+      'RB': 'Red / Blue',
+      'Y': 'Yellow',
+      'GS': 'Gold / Silver',
+      'C': 'Crystal',
+      'RS': 'Ruby / Sapphire',
+      'E': 'Emerald',
+      'FRLG': 'Firered / Leafgreen',
+      'DP': 'Diamond / Pearl',
+      'P': 'Platinum',
+      'HGSS': 'Heartgold / Soulsilver',
+      'BW': 'Black / White',
+      'B2W2': 'Black 2 / White 2',
+      'XY': 'X / Y',
+      'ORAS': 'Omega Ruby / Alpha-Sapphire',
+      'SM': 'Sun / Moon',
+      'USUM': 'Ultra Sun / Ultra Moon',
+      'LGPLGE': 'Lets Go Pikachu / Lets Go Eevee',
+      'SS': 'Sword / Shield',
+      'BDSP': 'Brilliant Diamond / Shining Pearl',
+      'SV': 'Scarlet / Violet',
+      // Füge hier weitere Kürzel und ihre ausgeschriebenen Namen hinzu.
+    };
+    return versionNames[version] || version;
   }
 
 

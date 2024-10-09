@@ -1,13 +1,10 @@
 <div class="main-container">
 
     <div class="learn-type-container">
-        <div *ngFor="let method of moveLearnMethods" class="learn-type"
-        [ngStyle]="{
+        <div *ngFor="let method of moveLearnMethods" class="learn-type" [ngStyle]="{
             borderColor: colorAsType(pokemon.type_1), 
             backgroundColor: method === activeLearnTypeNonFormatted ? colorAsType(pokemon.type_1) : (method === hoveredLearnType ? lightColorAsType(pokemon.type_1) : ''),
-          }"
-            (click)="setActiveLearnType(method)"
-            (mouseenter)="onMouseEnterType(method)"
+          }" (click)="setActiveLearnType(method)" (mouseenter)="onMouseEnterType(method)"
             (mouseleave)="onMouseLeaveType()">
             <span [ngStyle]="{
                 color: method === activeLearnTypeNonFormatted ? 'white' : 'black',
@@ -32,16 +29,31 @@
 
         <div class="moves-content" [ngStyle]="{ backgroundColor: lightColorAsType(pokemon.type_1) }"
             *ngIf="pokemon.moves.length > 0">
-            <div *ngFor="let move of movesFilteredByGameVersion" class="move-details" data-aos="fade-in">
-                <div class="move width-9">{{ move.levelLearnedAt > 0 ? move.levelLearnedAt : '-' }}</div>
-                <div class="move width-38">{{move.name}}</div>
-                <div class="move width-13">{{move.type}}</div>
-                <div class="move width-13">{{move.damageClass}}</div>
-                <div class="move width-9">{{move.power > 0 ? move.power : '-' }}</div>
-                <div class="move width-9">{{move.powerPoint}}</div>
-                <div class="move width-9">{{move.accuracy > 0 ? move.accuracy : '-' }}</div>
+
+            <div *ngIf="isLoading" class="loading-screen">
+                <img src="./../../../assets/img/pokeball_loading.png">
             </div>
+
+            <ng-container *ngIf="movesFilteredByGameVersion.length > 0; else noMovesTemplate">
+                <div *ngFor="let move of movesFilteredByGameVersion; let i = index" class="move-details"
+                    [ngStyle]="{ 'animation-delay': i * 0.05 + 's' }">
+                    <div class="move width-9">{{ move.levelLearnedAt > 0 ? move.levelLearnedAt : '-' }}</div>
+                    <div class="move width-38">{{ move.name }}</div>
+                    <div class="move width-13">{{ move.type }}</div>
+                    <div class="move width-13">{{ move.damageClass }}</div>
+                    <div class="move width-9">{{ move.power > 0 ? move.power : '-' }}</div>
+                    <div class="move width-9">{{ move.powerPoint }}</div>
+                    <div class="move width-9">{{ move.accuracy > 0 ? move.accuracy : '-' }}</div>
+                </div>
+            </ng-container>
+
+            <ng-template #noMovesTemplate>
+                <div class="no-moves-message" *ngIf="!isLoading">
+                    No Moves with this Setting
+                </div>
+            </ng-template>
         </div>
+
 
         <div class="moves-footer" [ngStyle]="{ backgroundColor: colorAsType(pokemon.type_1) }"></div>
     </div>
@@ -52,19 +64,17 @@
 
 
     <div class="game-version-container">
-        <div *ngFor="let version of pokemonGameVersions" class="game-version"
-            [ngStyle]="{
+        <div *ngFor="let version of uniqueSortedGameVersions" class="game-version" [ngStyle]="{
                 borderColor: colorAsType(pokemon.type_1), 
                 backgroundColor: version === activeGameVerisonNonFormatted ? colorAsType(pokemon.type_1) : (version === hoveredGameVersion ? lightColorAsType(pokemon.type_1) : '')
-              }"
-            (click)="setActiveGameVersion(version)"
-            (mouseenter)="onMouseEnterVersion(version)"
-            (mouseleave)="onMouseLeaveVersion()">
+              }" (click)="setActiveGameVersion(version)" (mouseenter)="onMouseEnterVersion(version)"
+            (mouseleave)="onMouseLeaveVersion()" [title]="getFullVersionName(version)" data-aos="slide-up">
             <span [ngStyle]="{
-                color: version === activeGameVerisonNonFormatted ? 'white' : 'black',
-                filter: version === activeGameVerisonNonFormatted ? 'drop-shadow(0px 0px 1px black)' : ''
-             }">{{version}}</span>
+              color: version === activeGameVerisonNonFormatted ? 'white' : 'black',
+              filter: version === activeGameVerisonNonFormatted ? 'drop-shadow(0px 0px 1px black)' : ''
+            }">{{versionAbbreviations[version]}}</span>
         </div>
     </div>
+
 
 </div>

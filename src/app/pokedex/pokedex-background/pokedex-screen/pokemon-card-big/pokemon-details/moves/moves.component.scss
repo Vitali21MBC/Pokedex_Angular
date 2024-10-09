@@ -1,7 +1,7 @@
 .main-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     height: 100%;
     width: 100%;
@@ -79,6 +79,9 @@
         width: 100%;
         border-bottom: 1px solid white;
         min-height: 31px;
+        opacity: 0; /* Anfangszustand: vollständig transparent */
+        transform: translateY(20px); /* Elemente starten leicht nach unten verschoben */
+        animation: fadeInUp 0.2s ease forwards; /* Führe die Animation durch */
 
         .move {
             display: flex;
@@ -89,6 +92,17 @@
         }
     }
 }
+
+@keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
 .width-9 {
     width: 9%;
@@ -135,4 +149,41 @@
     span {
         font-weight: bold;
     }
+
+
+}
+
+.loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // position: absolute;
+    // top: 0;
+    // left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9;
+
+    img {
+        height: 120px;
+        width: 120px;
+        animation: spin 2s linear infinite;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+
+
+}
+
+.no-moves-message {
+    display: flex;
+    justify-content: center; /* Horizontal zentrieren */
+    align-items: center; /* Vertikal zentrieren */
+    height: 100%; /* Höhe der Elternbox einnehmen */
+    font-size: 20px; /* Schriftgröße anpassen */
+    text-align: center; /* Text zentrieren */
 }
